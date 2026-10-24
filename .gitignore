@@ -19,3 +19,6 @@ broadcast/
 /artifacts/
 /deployment.json
 .DS_Store
+.vercel/
+.vercel
+.env*

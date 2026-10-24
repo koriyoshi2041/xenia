@@ -1,0 +1,988 @@
+<!doctype html>
+<html lang="zh">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Xenia 是开放社区的准入协议：陌生人先交一笔可退的押金进门，再用贡献积累信任。An admission protocol for open communities.">
+<meta property="og:title" content="Xenia · gas for humans">
+<meta property="og:description" content="Xenia 是开放社区的准入协议：陌生人先交一笔可退的押金进门，再用贡献积累信任。An admission protocol for open communities.">
+<meta property="og:image" content="https://xenia-silk.vercel.app/og.jpg">
+<meta property="og:url" content="https://xenia-silk.vercel.app/present.html">
+<link rel="canonical" href="https://xenia-silk.vercel.app/present.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0a09">
+<title>Xenia · gas for humans</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: 1920×1080 slides scaled to fit. Ink slides argue why; paper slides show how; one amber statement slide. */
+:root {
+  color-scheme: dark;
+  --chrome: #0b0a09;
+  --ink: #121110; --ink-2: #1b1a17; --ink-line: #34312c; --on-ink: #ece8df; --on-ink-mute: #a39d91;
+  --paper: #f2f0ea; --paper-2: #e7e4dc; --paper-line: #cfcbc1; --on-paper: #161614; --on-paper-mute: #5e5b55;
+  --amber: #e8b04b; --amber-deep: #8c5a0e; --on-amber: #1a140a;
+  --ok: #7fd18b; --ok-deep: #2f6e43; --bad: #f07167; --bad-deep: #a8322a;
+  --display: "Gloock", "GFS Didot", Georgia, serif;
+  --greek: "GFS Didot", "Gloock", Georgia, serif;
+  --shout: "Smiley Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --text: "Zhuque Fangsong", "Noto Serif SC", "Songti SC", "SimSun", serif;
+  --digits: "Departure Mono", "Smiley Sans", ui-monospace, monospace;
+  --mono: "Monaspace Krypton", "Zhuque Fangsong", ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+@font-face { font-family: "Gloock"; src: url("fonts/Gloock-Latin.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "GFS Didot"; src: url("fonts/GFSDidot-Greek.woff2") format("woff2"); unicode-range: U+0370-03FF; font-display: block; }
+@font-face { font-family: "Smiley Sans"; src: url("fonts/SmileySans-Oblique.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Zhuque Fangsong"; src: url("fonts/ZhuqueFangsong-GB.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Departure Mono"; src: url("fonts/DepartureMono-Regular.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Monaspace Krypton"; src: url("fonts/MonaspaceKrypton-Var.woff2") format("woff2"); font-weight: 200 800; font-display: block; }
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--chrome); color: var(--on-ink); font-family: var(--text); overflow: hidden; }
+.viewport { position: fixed; inset: 0; overflow: hidden; }
+.stage { position: absolute; width: 1920px; height: 1080px; transform-origin: 0 0; }
+.slide { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; opacity: 0; visibility: hidden; transition: opacity .35s ease, visibility 0s linear .35s; }
+.slide.is-active { opacity: 1; visibility: visible; transition: opacity .35s ease; }
+.ink { background-color: var(--ink); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"), radial-gradient(1500px 900px at 100% 108%, rgba(232, 176, 75, .10), transparent 62%), radial-gradient(1100px 760px at -6% -10%, rgba(255, 236, 200, .05), transparent 60%); color: var(--on-ink); }
+.paper { background-color: var(--paper); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"), radial-gradient(1400px 900px at 100% 110%, rgba(140, 90, 14, .06), transparent 60%); color: var(--on-paper); }
+.amber { background: var(--amber); color: var(--on-amber); }
+.slide p, .slide h1, .slide h2, .slide h3, .slide blockquote { margin: 0; }
+.pad { position: absolute; inset: 112px 128px 150px; }
+
+/* type scale: 300 hero · 112 h1 · 72 h2 · 52 statement · 34 body · 26 label */
+.hero { font: 400 300px/0.88 var(--display); letter-spacing: -0.02em; }
+.h1 { font: 400 112px/1.08 var(--shout); text-wrap: balance; }
+.h2 { font: 400 72px/1.18 var(--shout); text-wrap: balance; }
+.st { font: 400 52px/1.5 var(--text); text-wrap: balance; }
+.bd { font: 400 34px/1.65 var(--text); text-wrap: pretty; }
+.slide p { text-wrap: pretty; }
+.lb { font: 500 28px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.dg { font-family: var(--digits); font-variant-numeric: tabular-nums; }
+.en { font-family: var(--display); }
+.h2.en { font: 400 76px/1.12 var(--display); letter-spacing: -0.005em; }
+.st.en { font: 400 58px/1.25 var(--display); }
+.zh { font: 400 36px/1.5 var(--text); color: var(--on-ink-mute); margin-top: 16px; text-wrap: balance; }
+.paper .zh { color: var(--on-paper-mute); }
+.amber .zh { color: rgba(26, 20, 10, .78); }
+.mute { color: var(--on-ink-mute); }
+.paper .mute { color: var(--on-paper-mute); }
+.acc { color: var(--amber); }
+.paper .acc { color: var(--amber-deep); }
+.ok { color: var(--ok); } .paper .ok { color: var(--ok-deep); }
+.bad { color: var(--bad); } .paper .bad { color: var(--bad-deep); }
+.foot { position: absolute; left: 128px; right: 128px; bottom: 56px; display: flex; justify-content: space-between; font: 400 26px/1 var(--mono); letter-spacing: .05em; color: var(--on-ink-mute); }
+.paper .foot { color: var(--on-paper-mute); }
+.amber .foot { color: rgba(26, 20, 10, .62); }
+.src { font: 400 26px/1.5 var(--mono); color: var(--on-ink-mute); }
+.paper .src { color: var(--on-paper-mute); }
+
+/* build-ins: resting state is fully visible; the animation only runs while a slide plays */
+@keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+.slide.play .bi { animation: rise .8s cubic-bezier(.2, .7, .2, 1) both; animation-delay: var(--d, 0s); }
+.slide.play .bf { animation: fade 1s ease both; animation-delay: var(--d, 0s); }
+
+/* 1 cover */
+.cover-greek { position: absolute; right: -40px; top: -40px; font: 400 360px/1 var(--greek); color: transparent; -webkit-text-stroke: 2px var(--ink-line); letter-spacing: .02em; }
+.cover { position: absolute; left: 128px; top: 170px; width: 1300px; display: flex; flex-direction: column; gap: 34px; }
+.cover .sub { font: 400 64px/1 var(--digits); color: var(--amber); letter-spacing: .02em; margin-top: -6px; }
+.cover .st { margin-top: 70px; max-width: 1240px; }
+.cover .zh { max-width: 1240px; font-size: 38px; }
+
+/* 2 name */
+.name-gr { font: 400 132px/1 var(--greek); }
+.name-gr span { font-family: var(--display); font-size: 64px; color: var(--on-ink-mute); margin-left: 20px; }
+.name-gas { font: 400 104px/1.04 var(--digits); color: var(--amber); }
+.q-en { font: 400 40px/1.35 var(--display); border-left: 2px solid var(--ink-line); padding-left: 32px; }
+.q-en cite { display: block; font: 400 26px/1.6 var(--mono); font-style: normal; color: var(--on-ink-mute); margin-top: 14px; letter-spacing: .04em; }
+
+/* 4 path */
+.path { display: grid; grid-template-columns: repeat(4, 1fr); position: relative; margin-top: 84px; }
+.path::before { content: ""; position: absolute; left: 30px; right: calc(25% - 30px); top: 29px; height: 2px; background: var(--paper-line); }
+.path .node { position: relative; display: flex; flex-direction: column; gap: 22px; }
+.path .dot { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--on-paper); background: var(--paper); }
+.path .node:first-child .dot { border-color: var(--amber-deep); background: var(--amber); }
+.path .node:last-child .dot { background: var(--on-paper); }
+.path .lb { color: var(--on-paper-mute); }
+.path .nm { font: 400 50px/1.1 var(--display); }
+.path .zs { font: 400 30px/1.3 var(--text); color: var(--on-paper-mute); margin-top: -10px; }
+
+/* 5 flood */
+.flood-wrap { position: absolute; left: 128px; top: 360px; width: 1080px; height: 540px; }
+.flood-wrap::before { content: ""; position: absolute; inset: -26px -30px -26px -30px; border: 1px solid var(--ink-line); border-radius: 4px; background: radial-gradient(900px 520px at 0% 50%, rgba(236, 232, 223, .045), transparent 70%), rgba(236, 232, 223, .02); }
+.flood-wrap canvas { width: 1080px; height: 540px; display: block; }
+.flood-lbl b { font-weight: 400; } .flood-lbl .hum { color: var(--on-ink); } .flood-lbl .agt { color: var(--amber); }
+.flood-lbl { position: absolute; font: 400 26px/1.3 var(--mono); color: var(--on-ink-mute); letter-spacing: .05em; }
+.queue-n { position: absolute; right: 230px; top: -8px; font: 400 26px/1 var(--mono); color: var(--on-ink); }
+.queue-n b { font: 400 64px/1 var(--digits); color: var(--amber); font-weight: 400; margin-left: 12px; }
+.evid { position: absolute; left: 1330px; right: 128px; top: 330px; display: flex; flex-direction: column; gap: 46px; }
+.evid .n { font: 400 84px/1 var(--digits); color: var(--on-ink); }
+.evid p.t { font: 400 31px/1.5 var(--text); color: var(--on-ink-mute); margin-top: 12px; }
+
+/* 7 doors */
+.doors { display: grid; grid-template-columns: repeat(4, 1fr); gap: 56px; margin-top: 64px; }
+.door { display: flex; flex-direction: column; gap: 22px; }
+.frame { position: relative; height: 300px; border: 2px solid var(--on-paper); border-bottom-width: 6px; overflow: hidden; background: linear-gradient(180deg, rgba(232, 176, 75, .28), rgba(232, 176, 75, .62)), var(--paper-2); }
+.frame .panel { position: absolute; inset: 0; background: linear-gradient(180deg, #d8d1c2, #c6bead); box-shadow: inset -10px 0 18px rgba(22, 22, 20, .10); transform-origin: left center; }
+.frame .panel::before, .frame .panel::after { content: ""; position: absolute; left: 14%; right: 22%; border: 2px solid #a59c88; }
+.frame .panel::before { top: 9%; height: 36%; }
+.frame .panel::after { top: 53%; height: 38%; }
+.frame .knob { position: absolute; right: 22px; top: 50%; width: 14px; height: 14px; border-radius: 50%; background: var(--amber-deep); z-index: 1; }
+@keyframes shut { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.slide.play .frame .panel { animation: shut 1s cubic-bezier(.75, 0, .2, 1) both; animation-delay: var(--d, 0s); }
+.door .who { font: 400 40px/1.2 var(--shout); }
+.door .what { font: 400 31px/1.45 var(--text); color: var(--on-paper-mute); }
+.frost { position: absolute; left: 128px; right: 128px; bottom: 150px; display: grid; grid-template-columns: 1fr 620px; gap: 80px; align-items: end; }
+.frost .q-en { border-color: var(--paper-line); font-size: 34px; }
+.frost .q-en cite { color: var(--on-paper-mute); }
+
+/* 9 statement */
+.statement { position: absolute; left: 128px; right: 128px; top: 210px; display: flex; flex-direction: column; gap: 56px; }
+.statement .lb { color: rgba(26, 20, 10, .7); }
+.statement .big { font: 400 120px/1.08 var(--display); color: var(--on-amber); text-wrap: balance; letter-spacing: -0.01em; }
+.statement .zh { font-size: 48px; margin-top: 0; max-width: 1400px; }
+
+/* 10 stairs */
+.stairs { position: absolute; left: 128px; right: 128px; bottom: 150px; height: 720px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; align-items: end; }
+.step { display: flex; flex-direction: column; gap: 14px; }
+.step .w { font: 400 76px/1 var(--display); }
+.step .c { font: 400 40px/1 var(--shout); color: var(--amber); }
+.step .box { border: 2px solid var(--on-ink); padding: 30px 32px; font: 400 30px/1.55 var(--text); color: var(--on-ink); }
+.step:nth-child(1) .box { min-height: 200px; } .step:nth-child(2) .box { min-height: 290px; }
+.step:nth-child(3) .box { min-height: 380px; } .step:nth-child(4) .box { min-height: 470px; border-color: var(--amber); }
+
+/* 11 lineage */
+.tl { position: absolute; left: 128px; right: 128px; top: 380px; height: 470px; }
+.tl svg { position: absolute; left: 0; top: 0; width: 1664px; height: 470px; overflow: visible; }
+.tl-ribbon { fill: url(#tlGrad); }
+.tl-glow { fill: url(#tlGrad); filter: url(#tlGlow); opacity: .55; }
+.tl-marks .node { fill: var(--ink); stroke: var(--on-ink); stroke-width: 3; }
+.tl-marks .node.last { fill: var(--amber); stroke: none; }
+.tl-marks .halo { fill: none; stroke: var(--amber); stroke-width: 2; opacity: .4; }
+@keyframes reveal { from { clip-path: inset(-40px 100% -40px 0); } to { clip-path: inset(-40px -40px -40px 0); } }
+.slide.play .tl svg { animation: reveal 2.6s cubic-bezier(.45, 0, .2, 1) both; }
+.ev { position: absolute; width: 206px; display: flex; flex-direction: column; gap: 6px; }
+.ev .y { font: 400 36px/1 var(--digits); }
+.ev .n { font: 400 30px/1.15 var(--display); white-space: nowrap; }
+.ev .t { font: 400 28px/1.4 var(--text); color: var(--on-ink-mute); }
+.ev.last .y, .ev.last .n { color: var(--amber); }
+
+/* 12 mapping */
+.map { margin-top: 56px; display: grid; grid-template-columns: 1fr 120px 1fr; border-top: 2px solid var(--on-paper); }
+.map > div { padding: 30px 0; border-bottom: 1px solid var(--paper-line); min-width: 0; }
+.map .hd { font: 500 26px/1.3 var(--mono); letter-spacing: .06em; color: var(--on-paper-mute); padding: 20px 0; }
+.map > div { padding: 18px 0; }
+.map .a { font: 400 32px/1.45 var(--text); }
+.map .a b { font: 400 38px/1 var(--display); font-weight: 400; display: inline-block; margin-right: 20px; }
+.map .ar { font: 400 40px/1 var(--digits); color: var(--amber-deep); display: flex; align-items: center; justify-content: center; }
+.chain { position: absolute; left: 128px; right: 128px; bottom: 150px; display: grid; grid-template-columns: 300px repeat(3, 1fr); gap: 0; border-top: 2px solid var(--on-paper); }
+.chain > div { padding: 26px 26px 0 0; }
+.chain > div + div { padding-left: 26px; border-left: 1px solid var(--paper-line); }
+.chain .k { font: 400 38px/1.2 var(--display); }
+.chain .v { font: 400 30px/1.45 var(--text); color: var(--on-paper-mute); margin-top: 8px; }
+.chain .t { font: 400 24px/1.3 var(--mono); color: var(--amber-deep); margin-top: 12px; letter-spacing: .04em; }
+.chain .hd-k { font: 500 28px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--on-paper-mute); }
+
+/* 13 bond flow */
+.flow { position: absolute; left: 128px; right: 128px; top: 318px; height: 360px; }
+.vault { position: absolute; top: 40px; width: 360px; height: 270px; border: 2px solid var(--ink-line); display: flex; flex-direction: column; justify-content: flex-end; padding: 26px 30px; gap: 6px; }
+.vault .k { font: 400 44px/1.2 var(--display); }
+.vault .v { font: 400 26px/1.4 var(--mono); color: var(--on-ink-mute); }
+.vault.w { left: 0; } .vault.e { left: 652px; border-color: var(--on-ink); } .vault.p { right: 0; }
+.vault.hot { border-color: var(--amber); }
+.coin { position: absolute; left: 130px; top: 62px; width: 100px; height: 100px; border-radius: 50%; background: var(--amber); color: var(--on-amber); display: grid; place-items: center; font: 400 30px/1 var(--digits); box-shadow: 0 0 0 8px rgba(232, 176, 75, .16); }
+.verdict { position: absolute; left: 652px; width: 360px; top: -24px; font: 400 28px/1.3 var(--mono); letter-spacing: .04em; text-align: left; }
+.vnote { position: absolute; left: 0; right: 0; top: 332px; font: 400 34px/1.4 var(--text); color: var(--on-ink); }
+.rules { position: absolute; left: 128px; right: 128px; bottom: 150px; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 2px solid var(--ink-line); }
+.rules > div { padding: 26px 26px 0 0; display: flex; flex-direction: column; gap: 8px; }
+.rules > div + div { padding-left: 26px; border-left: 1px solid var(--ink-line); }
+.rules .k { font: 500 25px/1.3 var(--mono); white-space: nowrap; letter-spacing: .05em; }
+.rules .v { font: 400 29px/1.45 var(--text); color: var(--on-ink-mute); }
+
+/* 14 network */
+.net { position: absolute; left: 128px; top: 330px; width: 1040px; height: 580px; }
+.net svg { position: absolute; inset: 0; width: 1040px; height: 580px; overflow: visible; }
+.net .edge { stroke: var(--paper-line); stroke-width: 3; fill: none; transition: stroke .4s, opacity .4s; }
+.net .edge.on { stroke: var(--on-paper); }
+.net .edge.rec { stroke: var(--amber-deep); stroke-width: 4; }
+.net .edge.rec.off { stroke-dasharray: 10 12; opacity: .45; stroke: var(--bad-deep); }
+.nd { position: absolute; width: 340px; border: 2px solid var(--on-paper); background: var(--paper); padding: 22px 26px; display: flex; flex-direction: column; gap: 6px; transition: border-color .4s, box-shadow .4s; }
+.nd .k { font: 400 40px/1.15 var(--shout); }
+.nd .v { font: 400 26px/1.45 var(--mono); color: var(--on-paper-mute); }
+.nd.here { box-shadow: 10px 10px 0 var(--amber); }
+.nd.agent { left: 350px; top: 0; width: 340px; background: var(--on-paper); color: var(--paper); border-color: var(--on-paper); }
+.nd.agent .v { color: #c9c5bb; }
+.nd.a { left: 0; top: 370px; } .nd.b { right: 0; top: 370px; }
+.recog { position: absolute; left: 345px; top: 470px; width: 350px; text-align: center; font: 400 26px/1.35 var(--mono); color: var(--amber-deep); letter-spacing: .03em; transition: color .4s; }
+.recog.off { color: var(--bad-deep); }
+.ticker { position: absolute; left: 1230px; right: 128px; top: 330px; display: flex; flex-direction: column; gap: 10px; }
+.ticker .lb { color: var(--on-paper-mute); }
+.ticker .q { font: 400 176px/1 var(--digits); }
+.ticker .q.zero { color: var(--ok-deep); }
+.steps { position: absolute; left: 1230px; right: 128px; top: 610px; display: flex; flex-direction: column; gap: 12px; }
+.steps p { font: 400 29px/1.45 var(--text); color: var(--on-paper-mute); padding-left: 26px; border-left: 3px solid transparent; transition: color .3s, border-color .3s; }
+.steps p.cur { color: var(--on-paper); border-color: var(--amber-deep); }
+
+/* 16 architecture */
+.arch { position: absolute; left: 128px; right: 128px; top: 320px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 56px 40px; }
+.blk { border: 2px solid var(--ink-line); padding: 22px 24px; min-height: 170px; display: flex; flex-direction: column; gap: 10px; position: relative; transition: border-color .3s, background .3s; }
+.blk .k { font: 400 36px/1.2 var(--shout); }
+.blk .v { font: 400 27px/1.4 var(--mono); color: var(--on-ink-mute); }
+.blk.on { border-color: var(--amber); background: rgba(232, 176, 75, .08); }
+.blk .i { position: absolute; right: 18px; top: 16px; font: 400 24px/1 var(--digits); color: var(--on-ink-mute); }
+.blk.ret { border-style: dashed; }
+.agentbar { position: absolute; left: 128px; right: 128px; bottom: 150px; border-top: 2px solid var(--ink-line); padding-top: 26px; display: grid; grid-template-columns: 300px 1fr; gap: 40px; }
+.agentbar .k { font: 400 44px/1.2 var(--display); color: var(--amber); }
+.agentbar .v { font: 400 30px/1.55 var(--text); color: var(--on-ink-mute); }
+
+/* Demo: one real screenshot at a time; all four remain visible in print. */
+.demo-showcase { position: absolute; left: 128px; right: 128px; top: 262px; display: grid; grid-template-columns: 1060px 1fr; gap: 64px; align-items: start; }
+.demo-window { border: 1px solid var(--paper-line); background: #fafbf8; }
+.demo-window-label { padding: 8px 18px; border-bottom: 1px solid var(--paper-line); font: 400 24px/1.2 var(--mono); color: var(--on-paper-mute); }
+.demo-frames { position: relative; aspect-ratio: 16 / 10; }
+.demo-frames img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; visibility: hidden; }
+.demo-frames img.is-current { opacity: 1; visibility: inherit; }
+.demo-steps { margin: 0; padding: 0; list-style: none; }
+.demo-step { display: block; width: 100%; border: 0; border-top: 1px solid var(--paper-line); padding: 12px 0 16px; background: none; color: var(--on-paper-mute); text-align: left; cursor: pointer; }
+.demo-step .lb { display: block; font-size: 27px; }
+.demo-step .k { display: block; font: 400 38px/1.3 var(--shout); margin-top: 8px; }
+.demo-step .v { display: block; font: 400 28px/1.45 var(--text); margin-top: 6px; }
+.demo-step[aria-current="step"] { color: var(--on-paper); border-color: var(--amber-deep); }
+.demo-step[aria-current="step"] .lb { color: var(--amber-deep); }
+.demo-toggle { border: 0; padding: 15px 0; background: none; color: var(--on-paper-mute); font: 400 22px/1.4 var(--mono); cursor: pointer; text-decoration: underline; text-underline-offset: 5px; }
+.demo-step:focus-visible, .demo-toggle:focus-visible { outline: 2px solid var(--amber-deep); outline-offset: 8px; }
+.demo-print { display: none; }
+
+/* 21 roadmap */
+.road { position: absolute; left: 128px; right: 128px; top: 300px; bottom: 150px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+.road > div { display: flex; flex-direction: column; gap: 14px; padding: 0 36px 0 0; }
+.road > div:nth-child(1) { padding-top: 320px; } .road > div:nth-child(2) { padding-top: 214px; }
+.road > div:nth-child(3) { padding-top: 107px; } .road > div:nth-child(4) { padding-top: 0; }
+.road .w { font: 400 76px/1 var(--display); }
+.road .s { font: 500 26px/1.3 var(--mono); letter-spacing: .06em; color: var(--on-paper-mute); text-transform: uppercase; }
+.road .t { font: 400 32px/1.5 var(--text); border-top: 2px solid var(--on-paper); padding-top: 18px; }
+.road > div:nth-child(1) .t { border-color: var(--amber-deep); }
+
+/* 22 theses */
+.theses { position: absolute; left: 128px; right: 128px; top: 290px; display: flex; flex-direction: column; gap: 60px; }
+.thesis { display: grid; grid-template-columns: 300px 1fr; gap: 40px; align-items: baseline; border-top: 2px solid var(--ink-line); padding-top: 30px; }
+.thesis .k { font: 400 46px/1 var(--display); color: var(--amber); }
+.thesis .v { min-width: 0; }
+.thesis .e { font: 400 62px/1.2 var(--display); }
+.thesis .zh { font-size: 32px; margin-top: 10px; }
+
+/* 23 close */
+.close { position: absolute; left: 128px; top: 170px; width: 960px; display: flex; flex-direction: column; gap: 28px; }
+.close .big { font: 400 78px/1.18 var(--display); text-wrap: balance; }
+.close .zh { margin-top: 0; font-size: 34px; }
+.close .sig { margin-top: 80px; }
+.close .sig { display: flex; align-items: baseline; gap: 28px; }
+.close .sig .x { font: 400 120px/1 var(--display); }
+.close .sig .g { font: 400 44px/1 var(--digits); color: var(--amber); }
+/* beat slides */
+.beat { position: absolute; left: 128px; right: 220px; top: 250px; display: flex; flex-direction: column; gap: 40px; }
+.beat .big { font: 400 150px/1.02 var(--display); letter-spacing: -0.01em; text-wrap: balance; }
+.beat .big.cn { font: 400 104px/1.3 var(--text); }
+
+/* 15 divider */
+.divider { position: absolute; left: 128px; top: 120px; right: 128px; bottom: 150px; }
+.divider .w { position: absolute; font: 400 240px/1 var(--shout); }
+.divider .w1 { left: 0; top: 0; } .divider .w2 { left: 760px; top: 250px; color: var(--amber); } .divider .w3 { left: 0; top: 500px; }
+.divider .note { position: absolute; right: 0; bottom: 0; width: 620px; font: 400 30px/1.6 var(--text); color: var(--on-ink-mute); }
+
+/* 18 numbers */
+.nums { position: absolute; left: 128px; right: 128px; top: 380px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 2px solid var(--ink-line); }
+.nums > div { padding: 40px 48px 0 0; display: flex; flex-direction: column; gap: 22px; }
+.nums > div + div { padding-left: 48px; border-left: 2px solid var(--ink-line); }
+.nums .n { font: 400 150px/1 var(--digits); }
+.nums .t { font: 400 32px/1.55 var(--text); color: var(--on-ink-mute); }
+.nums .t b { color: var(--on-ink); font-weight: 400; }
+
+/* 19 dao */
+.daotab { margin-top: 48px; display: grid; grid-template-columns: 1.4fr 1fr 1fr; border-top: 2px solid var(--on-paper); }
+.daotab > div { padding: 24px 24px 24px 0; border-bottom: 1px solid var(--paper-line); font: 400 34px/1.45 var(--text); min-width: 0; }
+.daotab .hd { font: 500 24px/1.3 var(--mono); letter-spacing: .06em; color: var(--on-paper-mute); padding: 18px 24px 18px 0; }
+.daotab .tag { font: 500 28px/1.3 var(--mono); }
+
+/* 20 matrix */
+.mx { margin-top: 40px; width: 100%; border-collapse: collapse; font: 400 31px/1.4 var(--text); }
+.mx th { font: 500 24px/1.3 var(--mono); letter-spacing: .05em; color: var(--on-ink-mute); text-align: left; padding: 0 24px 18px 0; border-bottom: 2px solid var(--ink-line); font-weight: 500; }
+.mx td { padding: 24px 24px 24px 0; border-bottom: 1px solid var(--ink-line); vertical-align: top; color: var(--on-ink-mute); }
+.mx td:first-child { font: 400 38px/1.3 var(--shout); color: var(--on-ink); }
+.mx tr.us td { color: var(--on-ink); border-bottom-color: var(--amber); }
+.mx tr.us td:first-child { color: var(--amber); }
+
+/* ostrom rows */
+.rows3 { margin-top: 56px; border-top: 2px solid var(--ink-line); }
+.rows3 > div { display: grid; grid-template-columns: 240px 1fr; gap: 24px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--ink-line); }
+.rows3 .lb { color: var(--amber); }
+.rows3 .h3 { font: 400 42px/1.3 var(--shout); }
+
+/* why now: agents can pay and be known */
+.dotfield { position: absolute; right: 0; top: 0; width: 980px; height: 1080px; background: radial-gradient(circle, rgba(232, 176, 75, .8) 0 4px, transparent 4.5px) 0 0 / 30px 30px; -webkit-mask-image: radial-gradient(ellipse 80% 70% at 100% 40%, #000 0, transparent 72%); mask-image: radial-gradient(ellipse 80% 70% at 100% 40%, #000 0, transparent 72%); opacity: .7; pointer-events: none; }
+.nowcol { position: absolute; left: 128px; top: 150px; width: 1240px; display: flex; flex-direction: column; gap: 30px; }
+.nowcol .big { font: 400 116px/1.04 var(--display); letter-spacing: -0.01em; }
+.nowcol .zh { font-size: 42px; margin-top: 0; color: var(--on-ink); max-width: 1180px; }
+.facts2 { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-top: 40px; border-top: 2px solid var(--ink-line); padding-top: 32px; }
+.facts2 .k { font: 400 44px/1.1 var(--display); color: var(--amber); }
+.facts2 .v { font: 400 32px/1.5 var(--text); color: var(--on-ink-mute); margin-top: 14px; }
+
+/* portraits: dot-matrix, faded into the slide on their left edge */
+.portrait { position: absolute; right: 0; top: 0; height: 1080px; width: auto; max-width: none; pointer-events: none; -webkit-mask-image: linear-gradient(to left, #000 60%, transparent 97%), linear-gradient(to top, transparent 0, transparent 90px, #000 230px); -webkit-mask-composite: source-in; mask-image: linear-gradient(to left, #000 60%, transparent 97%), linear-gradient(to top, transparent 0, transparent 90px, #000 230px); mask-composite: intersect; }
+.namecol { right: auto; width: 900px; display: flex; flex-direction: column; gap: 16px; }
+.namecol .name-gr { font-size: 116px; }
+.namecol .name-gas { font: 400 64px/1 var(--digits); color: var(--amber); }
+.namecol .bd { font-size: 32px; line-height: 1.55; }
+.namecol .en-bd { font: 400 36px/1.3 var(--display); }
+.namecol .q-en { font-size: 34px; }
+.rule { height: 2px; background: var(--ink-line); margin: 6px 0; }
+
+/* chrome */
+.bar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; align-items: center; gap: 18px; padding-block: 10px calc(10px + env(safe-area-inset-bottom, 0px)); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); font: 400 13px/1 var(--mono); color: #8d877c; background: linear-gradient(to top, rgba(11, 10, 9, .92), rgba(11, 10, 9, 0)); opacity: .35; transition: opacity .3s; }
+.bar:hover, .bar:focus-within { opacity: 1; }
+.bar button { appearance: none; border: 1px solid #3a3731; background: #15140f; color: #ece8df; font: inherit; padding: 8px 12px; cursor: pointer; }
+.bar button:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.bar .prog { flex: 1; height: 2px; background: #2a2823; position: relative; min-width: 0; }
+.bar .prog i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--amber); }
+.bar .ttl { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 40vw; }
+@media (max-width: 560px) { .bar .ttl { display: none; } }
+body.ov { overflow: auto; }
+body.ov .viewport { position: static; overflow: visible; padding-block: 24px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+body.ov .stage { position: static; transform: none !important; width: auto; height: auto; display: grid; grid-template-columns: repeat(auto-fill, 384px); gap: 20px; justify-content: center; }
+body.ov .slide { position: relative; inset: auto; zoom: .2; opacity: 1; visibility: visible; transition: none; cursor: pointer; }
+body.ov .slide.is-active { outline: 12px solid var(--amber); }
+body.page { overflow: auto; height: auto; }
+body.page .viewport { position: static; overflow: visible; }
+body.page .stage { position: static; transform: none !important; width: auto; height: auto; max-width: 1680px; margin: 0 auto; display: flex; flex-direction: column; gap: clamp(0px, 1.6vw, 28px); }
+body.page .slide { position: relative; inset: auto; opacity: 1; visibility: visible; transition: none; }
+body.page .bar { display: none; }
+@page { size: 1920px 1080px; margin: 0; }
+@media print {
+  html, body { height: auto; overflow: visible; background: var(--ink); }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .viewport { position: static; overflow: visible; }
+  .stage { position: static; transform: none !important; width: 1920px; height: auto; }
+  .slide { position: relative; inset: auto; opacity: 1 !important; visibility: visible !important; transition: none !important; break-after: page; page-break-after: always; }
+  .slide:last-child { break-after: auto; page-break-after: auto; }
+  .slide .bi, .slide .bf, .slide .frame .panel, .slide .tl svg { animation: none !important; }
+  .bar, .demo-showcase { display: none; }
+  .demo-print { position: absolute; inset: 290px 128px 140px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 40px 56px; }
+  .demo-print figure { display: grid; grid-template-columns: 1fr 270px; gap: 22px; align-items: center; margin: 0; min-width: 0; }
+  .demo-print img { width: 100%; border: 1px solid var(--paper-line); }
+  .demo-print .lb { font-size: 23px; color: var(--amber-deep); }
+  .demo-print .k { font: 400 36px/1.3 var(--shout); margin-top: 14px; }
+  .demo-print .v { font: 400 26px/1.5 var(--text); margin-top: 10px; color: var(--on-paper-mute); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .slide, .slide.is-active { transition: none; }
+  .slide.play .bi, .slide.play .bf, .slide.play .frame .panel, .slide.play .tl svg { animation: none; }
+}
+</style>
+
+<div class="viewport" id="viewport">
+<div class="stage" id="stage">
+
+<!-- 1 · cover -->
+<section class="slide ink" id="cover" data-title="Cover">
+  <div class="cover-greek" aria-hidden="true">ΞΕΝΙΑ</div>
+  <div class="cover">
+    <p class="lb mute bi">ETH Shenzhen 2026</p>
+    <h1 class="hero bi" style="--d:.1s">Xenia</h1>
+    <p class="sub bi" style="--d:.25s">gas for humans</p>
+    <div class="bi" style="--d:.5s">
+      <p class="st en">When AI can ask without limit, how do we stay open to strangers?</p>
+    </div>
+  </div>
+  <footer class="foot"><span>Xenia · gas for humans</span><span>presented by Nobody</span></footer>
+</section>
+
+<!-- 2 · name -->
+<section class="slide ink" id="name" data-title="The name">
+  <img class="portrait bf" src="img/homer-ink.png" alt="荷马胸像的点阵画像">
+  <div class="pad namecol">
+    <p class="lb acc">why</p>
+    <h2 class="name-gr bi">ξενία<span>Xenia</span></h2>
+    <blockquote class="q-en bi" style="--d:.15s">“For all strangers and beggars are from Zeus.”<cite>Homer, Odyssey VI</cite></blockquote>
+    <p class="bd mute bi" style="--d:.3s">古希腊人相信，陌生人可能是神的化身：主人要款待，客人要守礼。《奥德赛》里霸占主人家的求婚者，最后都受到惩罚。</p>
+    <div class="rule"></div>
+    <p class="lb acc">how</p>
+    <p class="name-gas bi" style="--d:.45s">gas for humans</p>
+    <p class="en-bd bi" style="--d:.6s">Ethereum prices computation, so anyone can transact and no one can clog the network. We price human attention the same way, and give the deposit back.</p>
+  </div>
+  <footer class="foot"><span>Xenia · gas for humans</span><span class="pg"></span></footer>
+</section>
+
+<!-- 2b · attention -->
+<section class="slide ink" id="attention" data-title="Attention">
+  <div class="beat">
+    <p class="big bi">Attention Is All You Need.</p>
+    <p class="lb mute bi" style="--d:.2s">Vaswani et al., 2017</p>
+    <p class="st en bi" style="--d:.5s">AI was built on machine attention. Now it spends ours.</p>
+  </div>
+  <footer class="foot"><span>Xenia · gas for humans</span><span class="pg"></span></footer>
+</section>
+
+<!-- 3 · the stranger -->
+<section class="slide paper" id="stranger" data-title="The stranger">
+  <div class="pad">
+    <p class="lb mute">The best thing about open source</p>
+    <h2 class="h2 en" style="margin-top:22px">A total stranger can find a bug, send a fix, and become one of us.</h2>
+    <div class="path">
+      <div class="node bi" style="--d:.3s"><div class="dot"></div><p class="lb">01</p><p class="nm">Stranger</p><p class="zs">陌生人</p></div>
+      <div class="node bi" style="--d:.5s"><div class="dot"></div><p class="lb">02</p><p class="nm">First PR</p><p class="zs">第一次提交</p></div>
+      <div class="node bi" style="--d:.7s"><div class="dot"></div><p class="lb">03</p><p class="nm">Accepted</p><p class="zs">被接受</p></div>
+      <div class="node bi" style="--d:.9s"><div class="dot"></div><p class="lb">04</p><p class="nm">One of us</p><p class="zs">社区的一员</p></div>
+    </div>
+    <p class="bd mute bi" style="--d:1.2s;position:absolute;left:0;right:0;bottom:0;font-size:36px">这能运转，是因为写一个 PR 本身有成本：发出之前，作者已经自己判断过一次。</p>
+  </div>
+  <footer class="foot"><span>Xenia · gas for humans</span><span class="pg"></span></footer>
+</section>
+
+<!-- 4 · flood -->
+<section class="slide ink" id="flood" data-title="The flood">
+  <div class="pad" style="bottom:auto">
+    <h2 class="h2 en">AI broke the balance.</h2>
+    <p class="zh">写 PR 的成本接近零，审 PR 的人没有变多。</p>
+  </div>
+  <div class="flood-wrap">
+    <canvas id="floodCanvas" width="2160" height="1080" aria-label="请求不断涌入，一位维护者按固定速度处理，待审队列越积越长"></canvas>
+    <span class="flood-lbl" style="left:0;bottom:-40px">requests · <b class="hum">humans</b> &amp; <b class="agt">agents</b></span>
+    <span class="flood-lbl" style="right:0;bottom:-40px">one maintainer’s day</span>
+    <span class="queue-n">in queue<b id="queueN">0</b></span>
+  </div>
+  <div class="evid">
+    <div class="bi" style="--d:.2s"><p class="n">20,640</p><p class="t">openclaw 2026 年 9 月一个月收到的 PR</p></div>
+    <div class="bi" style="--d:.4s"><p class="n">688</p><p class="t">平均每天新增的 PR</p></div>
+  </div>
+  <footer class="foot"><span>GitHub 搜索计数 · openclaw/openclaw · 2026 年 9 月</span><span class="pg"></span></footer>
+</section>
+
+<!-- 5 · enclosure -->
+<section class="slide paper" id="enclosure" data-title="Enclosure">
+  <div class="pad">
+    <h2 class="h2 en">The attention commons is being fenced.</h2>
+    <div class="doors">
+      <div class="door"><div class="frame"><div class="panel" style="--d:.2s"></div><div class="knob"></div></div><p class="who">tldraw</p><p class="what">自动关闭所有外部 PR<br>2026.01</p></div>
+      <div class="door"><div class="frame"><div class="panel" style="--d:.55s"></div><div class="knob"></div></div><p class="who">Ghostty</p><p class="what">只接受有人担保的贡献者<br>2026.02</p></div>
+      <div class="door"><div class="frame"><div class="panel" style="--d:.9s"></div><div class="knob"></div></div><p class="who">curl</p><p class="what">停止漏洞赏金计划<br>2026.01</p></div>
+      <div class="door"><div class="frame"><div class="panel" style="--d:1.25s"></div><div class="knob"></div></div><p class="who">GitHub</p><p class="what">允许关闭 PR，或只对协作者开放<br>2026.02</p></div>
+    </div>
+  </div>
+  <div class="frost">
+    <p class="bd bi" style="--d:1.6s">关上门，挡住的不只是灌水账号，也有认真的新人和守规矩的 Agent。在有记录之前，两者无从区分。</p>
+    <blockquote class="q-en bi" style="--d:1.9s">“Before I built a wall I’d ask to know / What I was walling in or walling out.”<cite>Robert Frost, Mending Wall, 1914</cite></blockquote>
+  </div>
+  <footer class="foot"><span>Xenia · gas for humans</span><span class="pg"></span></footer>
+</section>
+
+<!-- 5b · why now -->
+<section class="slide ink" id="agents" data-title="Why now">
+  <div class="dotfield bf" aria-hidden="true"></div>
+  <div class="nowcol">
+    <p class="lb acc bi">Why now</p>
+    <p class="big bi" style="--d:.1s">Agents can now pay,<br>and be known.</p>
+    <p class="zh bi" style="--d:.3s">AI 带来了洪水，也第一次能为自己的请求承担成本。</p>
+    <div class="facts2">
+      <div class="bi" style="--d:.5s"><p class="k">x402 · 2025</p><p class="v">Agent 用一个签名完成付款，无需账户和信用卡，也不付 gas。</p></div>
+      <div class="bi" style="--d:.7s"><p class="k">ERC-8004 · 2025</p><p class="v">Agent 有了链上身份，贡献记录随身携带，到其他社区也能识别。</p></div>
+    </div>
+  </div>
+  <footer class="foot"><span>x402 · ERC-3009 · ERC-8004</span><span class="pg"></span></footer>
+</section>
+
+<!-- 6 · definition -->
+<section class="slide amber" id="define" data-title="Definition">
+  <div class="statement">
+    <p class="lb">Xenia</p>
+    <p class="big en bi">An admission protocol for open communities.</p>
+    <p class="zh bi" style="--d:.3s">陌生人先交一笔可退的押金进门，再用贡献积累信任。</p>
+  </div>
+  <footer class="foot"><span>Xenia · gas for humans</span><span class="pg"></span></footer>
+</section>
+
+<!-- 7 · four verbs -->
+<section class="slide ink" id="verbs" data-title="Four verbs">
+  <div class="pad" style="bottom:auto">
+    <h2 class="h2 en">Four verbs</h2>
+  </div>
+  <div class="stairs">
+    <div class="step bi" style="--d:.1s"><p class="w">Commit</p><p class="c">承诺</p><div class="box">没有记录的人，先锁定一笔可退的押金</div></div>
+    <div class="step bi" style="--d:.35s"><p class="w">Review</p><p class="c">审阅</p><div class="box">维护者给出结论：接受、善意未采用，或判定为垃圾</div></div>
+    <div class="step bi" style="--d:.6s"><p class="w">Record</p><p class="c">记录</p><div class="box">结论写成链上证明，归贡献者所有，可以带走</div></div>
+    <div class="step bi" style="--d:.85s"><p class="w">Recognize</p><p class="c">互认</p><div class="box">其他社区自行决定是否认可。认可越多，下次押金越低</div></div>
+  </div>
+  <footer class="foot"><span>Xenia · gas for humans</span><span class="pg"></span></footer>
+</section>
+
+<!-- 8 · lineage -->
+<section class="slide ink" id="lineage" data-title="Lineage">
+  <div class="pad" style="bottom:auto">
+    <h2 class="h2 en">Who pays for the load you bring?</h2>
+    <p class="zh">从 1971 年起，开放系统一直在回答这个问题。</p>
+  </div>
+  <div class="tl">
+    <svg viewBox="0 0 1664 470" aria-hidden="true">
+      <defs><linearGradient id="tlGrad" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#ece8df" stop-opacity=".16"/><stop offset=".55" stop-color="#ece8df" stop-opacity=".5"/><stop offset=".85" stop-color="#e8b04b" stop-opacity=".85"/><stop offset="1" stop-color="#e8b04b"/></linearGradient></defs>
+      <defs><filter id="tlGlow" x="-5%" y="-60%" width="110%" height="220%"><feGaussianBlur stdDeviation="9"/></filter></defs>
+      <path class="tl-glow" d="M-0.0 339.1 L9.0 339.3 L17.9 339.4 L26.9 339.6 L35.8 339.7 L44.6 339.8 L53.5 339.9 L62.3 340.1 L71.1 340.1 L79.9 340.2 L88.7 340.3 L97.4 340.3 L106.1 340.4 L114.8 340.4 L123.4 340.4 L132.0 340.5 L140.6 340.5 L149.2 340.4 L157.7 340.4 L166.3 340.4 L174.8 340.3 L183.2 340.3 L191.7 340.2 L200.1 340.1 L208.5 340.1 L216.9 340.0 L225.2 339.8 L233.6 339.7 L241.9 339.6 L250.1 339.4 L258.4 339.3 L266.6 339.1 L274.8 338.9 L283.0 338.8 L291.2 338.6 L299.3 338.3 L307.5 338.1 L315.5 337.9 L323.6 337.6 L331.7 337.4 L339.7 337.1 L347.7 336.9 L355.7 336.6 L363.7 336.3 L371.6 336.0 L379.5 335.7 L387.4 335.3 L395.3 335.0 L403.2 334.6 L411.0 334.3 L418.8 333.9 L426.6 333.5 L434.4 333.1 L442.1 332.7 L449.8 332.3 L457.6 331.9 L465.2 331.5 L472.9 331.0 L480.6 330.6 L488.2 330.1 L495.8 329.7 L503.4 329.2 L511.0 328.7 L518.5 328.2 L526.1 327.7 L533.6 327.1 L541.1 326.6 L548.5 326.1 L556.0 325.5 L563.4 324.9 L570.9 324.4 L578.3 323.8 L585.7 323.2 L593.0 322.6 L600.4 322.0 L607.7 321.4 L615.0 320.7 L622.3 320.1 L629.6 319.4 L636.8 318.8 L644.1 318.1 L651.3 317.4 L658.5 316.7 L665.7 316.0 L672.9 315.3 L680.0 314.6 L687.2 313.9 L694.3 313.1 L701.4 312.4 L708.5 311.6 L715.6 310.9 L722.7 310.1 L729.7 309.3 L736.7 308.5 L743.7 307.7 L750.7 306.9 L757.7 306.1 L764.7 305.3 L771.7 304.4 L778.6 303.6 L785.5 302.7 L792.4 301.8 L799.3 301.0 L806.2 300.1 L813.1 299.2 L819.9 298.3 L826.8 297.4 L833.6 296.4 L840.4 295.5 L847.2 294.6 L854.0 293.6 L860.7 292.7 L867.5 291.7 L874.2 290.7 L881.0 289.7 L887.7 288.8 L894.4 287.8 L901.1 286.7 L907.8 285.7 L914.4 284.7 L921.1 283.7 L927.7 282.6 L934.4 281.6 L941.0 280.5 L947.6 279.4 L954.2 278.4 L960.8 277.3 L967.3 276.2 L973.9 275.1 L980.5 274.0 L987.0 272.9 L993.5 271.7 L1000.0 270.6 L1006.6 269.4 L1013.0 268.3 L1019.5 267.1 L1026.0 266.0 L1032.5 264.8 L1038.9 263.6 L1045.4 262.4 L1051.8 261.2 L1058.2 260.0 L1064.7 258.8 L1071.1 257.6 L1077.5 256.3 L1083.8 255.1 L1090.2 253.8 L1096.6 252.6 L1103.0 251.3 L1109.3 250.0 L1115.7 248.8 L1122.0 247.5 L1128.3 246.2 L1134.6 244.9 L1141.0 243.6 L1147.3 242.2 L1153.6 240.9 L1159.8 239.6 L1166.1 238.2 L1172.4 236.9 L1178.7 235.5 L1184.9 234.2 L1191.2 232.8 L1197.4 231.4 L1203.6 230.0 L1209.9 228.6 L1216.1 227.2 L1222.3 225.8 L1228.5 224.4 L1234.7 223.0 L1240.9 221.6 L1247.1 220.1 L1253.3 218.7 L1259.5 217.2 L1265.7 215.8 L1271.8 214.3 L1278.0 212.8 L1284.2 211.4 L1290.3 209.9 L1296.5 208.4 L1302.6 206.9 L1308.8 205.4 L1314.9 203.8 L1321.0 202.3 L1327.1 200.8 L1333.3 199.3 L1339.4 197.7 L1345.5 196.2 L1351.6 194.6 L1357.7 193.1 L1363.8 191.5 L1369.9 189.9 L1376.0 188.3 L1382.1 186.7 L1388.2 185.1 L1394.3 183.5 L1400.4 181.9 L1406.4 180.3 L1412.5 178.7 L1418.6 177.1 L1424.7 175.4 L1430.7 173.8 L1436.8 172.1 L1442.9 170.5 L1448.9 168.8 L1455.0 167.2 L1461.0 165.5 L1467.1 163.8 L1473.2 162.1 L1479.2 160.4 L1485.3 158.7 L1491.3 157.0 L1497.4 155.3 L1503.4 153.6 L1509.5 151.9 L1515.5 150.2 L1521.6 148.4 L1527.6 146.7 L1533.7 145.0 L1539.7 143.2 L1545.8 141.5 L1551.8 139.7 L1557.9 137.9 L1563.9 136.2 L1570.0 134.4 L1576.0 132.6 L1582.1 130.8 L1588.1 129.0 L1594.2 127.2 L1600.2 125.4 L1606.3 123.6 L1612.3 121.8 L1618.4 119.9 L1624.4 118.1 L1630.5 116.3 L1636.6 114.4 L1642.6 112.6 L1648.7 110.7 L1654.8 108.9 L1660.8 107.0 L1666.9 105.1 L1661.1 86.9 L1655.1 88.8 L1649.0 90.8 L1643.0 92.8 L1637.0 94.7 L1631.0 96.7 L1625.0 98.6 L1619.0 100.6 L1613.0 102.5 L1606.9 104.4 L1600.9 106.4 L1594.9 108.3 L1588.9 110.2 L1582.9 112.1 L1576.9 114.0 L1570.9 115.9 L1564.9 117.8 L1558.9 119.7 L1552.9 121.6 L1546.9 123.4 L1540.9 125.3 L1534.9 127.2 L1528.9 129.0 L1522.9 130.9 L1516.9 132.7 L1510.9 134.5 L1504.9 136.4 L1498.9 138.2 L1492.9 140.0 L1486.9 141.8 L1480.9 143.6 L1474.9 145.4 L1468.9 147.2 L1462.8 149.0 L1456.8 150.8 L1450.8 152.5 L1444.8 154.3 L1438.8 156.1 L1432.8 157.8 L1426.7 159.6 L1420.7 161.3 L1414.7 163.0 L1408.7 164.8 L1402.6 166.5 L1396.6 168.2 L1390.5 169.9 L1384.5 171.6 L1378.5 173.3 L1372.4 175.0 L1366.4 176.6 L1360.3 178.3 L1354.2 180.0 L1348.2 181.6 L1342.1 183.3 L1336.0 184.9 L1330.0 186.6 L1323.9 188.2 L1317.8 189.8 L1311.7 191.4 L1305.6 193.0 L1299.5 194.6 L1293.4 196.2 L1287.3 197.8 L1281.2 199.4 L1275.1 201.0 L1268.9 202.5 L1262.8 204.1 L1256.7 205.6 L1250.5 207.2 L1244.4 208.7 L1238.2 210.2 L1232.1 211.7 L1225.9 213.3 L1219.7 214.8 L1213.5 216.2 L1207.3 217.7 L1201.2 219.2 L1195.0 220.7 L1188.7 222.2 L1182.5 223.6 L1176.3 225.1 L1170.1 226.5 L1163.8 227.9 L1157.6 229.4 L1151.3 230.8 L1145.1 232.2 L1138.8 233.6 L1132.5 235.0 L1126.2 236.4 L1119.9 237.7 L1113.6 239.1 L1107.3 240.5 L1101.0 241.8 L1094.7 243.2 L1088.3 244.5 L1082.0 245.8 L1075.6 247.2 L1069.3 248.5 L1062.9 249.8 L1056.5 251.1 L1050.1 252.4 L1043.7 253.6 L1037.3 254.9 L1030.8 256.2 L1024.4 257.4 L1018.0 258.7 L1011.5 259.9 L1005.0 261.1 L998.6 262.4 L992.1 263.6 L985.6 264.8 L979.0 266.0 L972.5 267.2 L966.0 268.3 L959.4 269.5 L952.9 270.7 L946.3 271.8 L939.7 273.0 L933.1 274.1 L926.5 275.2 L919.9 276.3 L913.3 277.4 L906.6 278.5 L900.0 279.6 L893.3 280.7 L886.6 281.8 L879.9 282.8 L873.2 283.9 L866.5 284.9 L859.8 286.0 L853.0 287.0 L846.2 288.0 L839.5 289.0 L832.7 290.0 L825.9 291.0 L819.1 292.0 L812.2 292.9 L805.4 293.9 L798.5 294.8 L791.6 295.8 L784.7 296.7 L777.8 297.6 L770.9 298.6 L764.0 299.5 L757.0 300.3 L750.1 301.2 L743.1 302.1 L736.1 303.0 L729.1 303.8 L722.0 304.7 L715.0 305.5 L707.9 306.3 L700.8 307.1 L693.7 307.9 L686.6 308.7 L679.5 309.5 L672.4 310.3 L665.2 311.1 L658.0 311.8 L650.8 312.6 L643.6 313.3 L636.4 314.0 L629.1 314.7 L621.9 315.4 L614.6 316.1 L607.3 316.8 L600.0 317.5 L592.6 318.2 L585.3 318.8 L577.9 319.5 L570.5 320.1 L563.1 320.7 L555.7 321.3 L548.2 321.9 L540.8 322.5 L533.3 323.1 L525.8 323.7 L518.3 324.2 L510.7 324.8 L503.1 325.3 L495.6 325.8 L488.0 326.4 L480.3 326.9 L472.7 327.4 L465.0 327.9 L457.4 328.3 L449.6 328.8 L441.9 329.2 L434.2 329.7 L426.4 330.1 L418.6 330.5 L410.8 330.9 L403.0 331.3 L395.1 331.7 L387.3 332.1 L379.4 332.5 L371.5 332.8 L363.5 333.2 L355.6 333.5 L347.6 333.8 L339.6 334.1 L331.6 334.4 L323.5 334.7 L315.5 335.0 L307.4 335.2 L299.3 335.5 L291.1 335.7 L283.0 336.0 L274.8 336.2 L266.6 336.4 L258.3 336.6 L250.1 336.8 L241.8 336.9 L233.5 337.1 L225.2 337.3 L216.8 337.4 L208.5 337.5 L200.1 337.6 L191.7 337.7 L183.2 337.8 L174.7 337.9 L166.2 338.0 L157.7 338.0 L149.2 338.1 L140.6 338.1 L132.0 338.1 L123.4 338.1 L114.8 338.1 L106.1 338.1 L97.4 338.1 L88.7 338.0 L79.9 338.0 L71.2 337.9 L62.4 337.8 L53.5 337.7 L44.7 337.6 L35.8 337.5 L26.9 337.4 L18.0 337.2 L9.0 337.1 L0.0 336.9 Z"/>
+      <path class="tl-ribbon" d="M-0.0 339.1 L9.0 339.3 L17.9 339.4 L26.9 339.6 L35.8 339.7 L44.6 339.8 L53.5 339.9 L62.3 340.1 L71.1 340.1 L79.9 340.2 L88.7 340.3 L97.4 340.3 L106.1 340.4 L114.8 340.4 L123.4 340.4 L132.0 340.5 L140.6 340.5 L149.2 340.4 L157.7 340.4 L166.3 340.4 L174.8 340.3 L183.2 340.3 L191.7 340.2 L200.1 340.1 L208.5 340.1 L216.9 340.0 L225.2 339.8 L233.6 339.7 L241.9 339.6 L250.1 339.4 L258.4 339.3 L266.6 339.1 L274.8 338.9 L283.0 338.8 L291.2 338.6 L299.3 338.3 L307.5 338.1 L315.5 337.9 L323.6 337.6 L331.7 337.4 L339.7 337.1 L347.7 336.9 L355.7 336.6 L363.7 336.3 L371.6 336.0 L379.5 335.7 L387.4 335.3 L395.3 335.0 L403.2 334.6 L411.0 334.3 L418.8 333.9 L426.6 333.5 L434.4 333.1 L442.1 332.7 L449.8 332.3 L457.6 331.9 L465.2 331.5 L472.9 331.0 L480.6 330.6 L488.2 330.1 L495.8 329.7 L503.4 329.2 L511.0 328.7 L518.5 328.2 L526.1 327.7 L533.6 327.1 L541.1 326.6 L548.5 326.1 L556.0 325.5 L563.4 324.9 L570.9 324.4 L578.3 323.8 L585.7 323.2 L593.0 322.6 L600.4 322.0 L607.7 321.4 L615.0 320.7 L622.3 320.1 L629.6 319.4 L636.8 318.8 L644.1 318.1 L651.3 317.4 L658.5 316.7 L665.7 316.0 L672.9 315.3 L680.0 314.6 L687.2 313.9 L694.3 313.1 L701.4 312.4 L708.5 311.6 L715.6 310.9 L722.7 310.1 L729.7 309.3 L736.7 308.5 L743.7 307.7 L750.7 306.9 L757.7 306.1 L764.7 305.3 L771.7 304.4 L778.6 303.6 L785.5 302.7 L792.4 301.8 L799.3 301.0 L806.2 300.1 L813.1 299.2 L819.9 298.3 L826.8 297.4 L833.6 296.4 L840.4 295.5 L847.2 294.6 L854.0 293.6 L860.7 292.7 L867.5 291.7 L874.2 290.7 L881.0 289.7 L887.7 288.8 L894.4 287.8 L901.1 286.7 L907.8 285.7 L914.4 284.7 L921.1 283.7 L927.7 282.6 L934.4 281.6 L941.0 280.5 L947.6 279.4 L954.2 278.4 L960.8 277.3 L967.3 276.2 L973.9 275.1 L980.5 274.0 L987.0 272.9 L993.5 271.7 L1000.0 270.6 L1006.6 269.4 L1013.0 268.3 L1019.5 267.1 L1026.0 266.0 L1032.5 264.8 L1038.9 263.6 L1045.4 262.4 L1051.8 261.2 L1058.2 260.0 L1064.7 258.8 L1071.1 257.6 L1077.5 256.3 L1083.8 255.1 L1090.2 253.8 L1096.6 252.6 L1103.0 251.3 L1109.3 250.0 L1115.7 248.8 L1122.0 247.5 L1128.3 246.2 L1134.6 244.9 L1141.0 243.6 L1147.3 242.2 L1153.6 240.9 L1159.8 239.6 L1166.1 238.2 L1172.4 236.9 L1178.7 235.5 L1184.9 234.2 L1191.2 232.8 L1197.4 231.4 L1203.6 230.0 L1209.9 228.6 L1216.1 227.2 L1222.3 225.8 L1228.5 224.4 L1234.7 223.0 L1240.9 221.6 L1247.1 220.1 L1253.3 218.7 L1259.5 217.2 L1265.7 215.8 L1271.8 214.3 L1278.0 212.8 L1284.2 211.4 L1290.3 209.9 L1296.5 208.4 L1302.6 206.9 L1308.8 205.4 L1314.9 203.8 L1321.0 202.3 L1327.1 200.8 L1333.3 199.3 L1339.4 197.7 L1345.5 196.2 L1351.6 194.6 L1357.7 193.1 L1363.8 191.5 L1369.9 189.9 L1376.0 188.3 L1382.1 186.7 L1388.2 185.1 L1394.3 183.5 L1400.4 181.9 L1406.4 180.3 L1412.5 178.7 L1418.6 177.1 L1424.7 175.4 L1430.7 173.8 L1436.8 172.1 L1442.9 170.5 L1448.9 168.8 L1455.0 167.2 L1461.0 165.5 L1467.1 163.8 L1473.2 162.1 L1479.2 160.4 L1485.3 158.7 L1491.3 157.0 L1497.4 155.3 L1503.4 153.6 L1509.5 151.9 L1515.5 150.2 L1521.6 148.4 L1527.6 146.7 L1533.7 145.0 L1539.7 143.2 L1545.8 141.5 L1551.8 139.7 L1557.9 137.9 L1563.9 136.2 L1570.0 134.4 L1576.0 132.6 L1582.1 130.8 L1588.1 129.0 L1594.2 127.2 L1600.2 125.4 L1606.3 123.6 L1612.3 121.8 L1618.4 119.9 L1624.4 118.1 L1630.5 116.3 L1636.6 114.4 L1642.6 112.6 L1648.7 110.7 L1654.8 108.9 L1660.8 107.0 L1666.9 105.1 L1661.1 86.9 L1655.1 88.8 L1649.0 90.8 L1643.0 92.8 L1637.0 94.7 L1631.0 96.7 L1625.0 98.6 L1619.0 100.6 L1613.0 102.5 L1606.9 104.4 L1600.9 106.4 L1594.9 108.3 L1588.9 110.2 L1582.9 112.1 L1576.9 114.0 L1570.9 115.9 L1564.9 117.8 L1558.9 119.7 L1552.9 121.6 L1546.9 123.4 L1540.9 125.3 L1534.9 127.2 L1528.9 129.0 L1522.9 130.9 L1516.9 132.7 L1510.9 134.5 L1504.9 136.4 L1498.9 138.2 L1492.9 140.0 L1486.9 141.8 L1480.9 143.6 L1474.9 145.4 L1468.9 147.2 L1462.8 149.0 L1456.8 150.8 L1450.8 152.5 L1444.8 154.3 L1438.8 156.1 L1432.8 157.8 L1426.7 159.6 L1420.7 161.3 L1414.7 163.0 L1408.7 164.8 L1402.6 166.5 L1396.6 168.2 L1390.5 169.9 L1384.5 171.6 L1378.5 173.3 L1372.4 175.0 L1366.4 176.6 L1360.3 178.3 L1354.2 180.0 L1348.2 181.6 L1342.1 183.3 L1336.0 184.9 L1330.0 186.6 L1323.9 188.2 L1317.8 189.8 L1311.7 191.4 L1305.6 193.0 L1299.5 194.6 L1293.4 196.2 L1287.3 197.8 L1281.2 199.4 L1275.1 201.0 L1268.9 202.5 L1262.8 204.1 L1256.7 205.6 L1250.5 207.2 L1244.4 208.7 L1238.2 210.2 L1232.1 211.7 L1225.9 213.3 L1219.7 214.8 L1213.5 216.2 L1207.3 217.7 L1201.2 219.2 L1195.0 220.7 L1188.7 222.2 L1182.5 223.6 L1176.3 225.1 L1170.1 226.5 L1163.8 227.9 L1157.6 229.4 L1151.3 230.8 L1145.1 232.2 L1138.8 233.6 L1132.5 235.0 L1126.2 236.4 L1119.9 237.7 L1113.6 239.1 L1107.3 240.5 L1101.0 241.8 L1094.7 243.2 L1088.3 244.5 L1082.0 245.8 L1075.6 247.2 L1069.3 248.5 L1062.9 249.8 L1056.5 251.1 L1050.1 252.4 L1043.7 253.6 L1037.3 254.9 L1030.8 256.2 L1024.4 257.4 L1018.0 258.7 L1011.5 259.9 L1005.0 261.1 L998.6 262.4 L992.1 263.6 L985.6 264.8 L979.0 266.0 L972.5 267.2 L966.0 268.3 L959.4 269.5 L952.9 270.7 L946.3 271.8 L939.7 273.0 L933.1 274.1 L926.5 275.2 L919.9 276.3 L913.3 277.4 L906.6 278.5 L900.0 279.6 L893.3 280.7 L886.6 281.8 L879.9 282.8 L873.2 283.9 L866.5 284.9 L859.8 286.0 L853.0 287.0 L846.2 288.0 L839.5 289.0 L832.7 290.0 L825.9 291.0 L819.1 292.0 L812.2 292.9 L805.4 293.9 L798.5 294.8 L791.6 295.8 L784.7 296.7 L777.8 297.6 L770.9 298.6 L764.0 299.5 L757.0 300.3 L750.1 301.2 L743.1 302.1 L736.1 303.0 L729.1 303.8 L722.0 304.7 L715.0 305.5 L707.9 306.3 L700.8 307.1 L693.7 307.9 L686.6 308.7 L679.5 309.5 L672.4 310.3 L665.2 311.1 L658.0 311.8 L650.8 312.6 L643.6 313.3 L636.4 314.0 L629.1 314.7 L621.9 315.4 L614.6 316.1 L607.3 316.8 L600.0 317.5 L592.6 318.2 L585.3 318.8 L577.9 319.5 L570.5 320.1 L563.1 320.7 L555.7 321.3 L548.2 321.9 L540.8 322.5 L533.3 323.1 L525.8 323.7 L518.3 324.2 L510.7 324.8 L503.1 325.3 L495.6 325.8 L488.0 326.4 L480.3 326.9 L472.7 327.4 L465.0 327.9 L457.4 328.3 L449.6 328.8 L441.9 329.2 L434.2 329.7 L426.4 330.1 L418.6 330.5 L410.8 330.9 L403.0 331.3 L395.1 331.7 L387.3 332.1 L379.4 332.5 L371.5 332.8 L363.5 333.2 L355.6 333.5 L347.6 333.8 L339.6 334.1 L331.6 334.4 L323.5 334.7 L315.5 335.0 L307.4 335.2 L299.3 335.5 L291.1 335.7 L283.0 336.0 L274.8 336.2 L266.6 336.4 L258.3 336.6 L250.1 336.8 L241.8 336.9 L233.5 337.1 L225.2 337.3 L216.8 337.4 L208.5 337.5 L200.1 337.6 L191.7 337.7 L183.2 337.8 L174.7 337.9 L166.2 338.0 L157.7 338.0 L149.2 338.1 L140.6 338.1 L132.0 338.1 L123.4 338.1 L114.8 338.1 L106.1 338.1 L97.4 338.1 L88.7 338.0 L79.9 338.0 L71.2 337.9 L62.4 337.8 L53.5 337.7 L44.7 337.6 L35.8 337.5 L26.9 337.4 L18.0 337.2 L9.0 337.1 L0.0 336.9 Z"/>
+      <g class="tl-marks"><circle class="node" cx="40" cy="338.6" r="8"/><circle class="node" cx="250" cy="338.1" r="8"/><circle class="node" cx="460" cy="330.1" r="8"/><circle class="node" cx="670" cy="312.8" r="8"/><circle class="node" cx="880" cy="286.3" r="8"/><circle class="node" cx="1090" cy="249.2" r="8"/><circle class="node" cx="1300" cy="200.8" r="8"/><circle class="halo" cx="1500" cy="145.9" r="22"/><circle class="node last" cx="1500" cy="145.9" r="12"/></g>
+    </svg>
+    <div class="ev bi" style="left:32px;width:300px;top:365px;--d:0.20s"><p class="y">1971</p><p class="n">Herbert Simon</p><p class="t">注意力成了稀缺资源</p></div>
+    <div class="ev bi" style="left:0px;width:258px;text-align:right;bottom:158px;--d:0.45s"><p class="y">1992</p><p class="n">Dwork &amp; Naor</p><p class="t">用计算给邮件定价</p></div>
+    <div class="ev bi" style="left:452px;width:300px;top:356px;--d:0.70s"><p class="y">1997</p><p class="n">Hashcash</p><p class="t">发信前先付出计算</p></div>
+    <div class="ev bi" style="left:378px;width:300px;text-align:right;bottom:183px;--d:0.95s"><p class="y">2008</p><p class="n">Bitcoin</p><p class="t">用算力守住账本</p></div>
+    <div class="ev bi" style="left:872px;width:300px;top:312px;--d:1.20s"><p class="y">2015</p><p class="n">Ethereum</p><p class="t">为每一步计算定价</p></div>
+    <div class="ev bi" style="left:798px;width:300px;text-align:right;bottom:247px;--d:1.45s"><p class="y">2021</p><p class="n">EIP-1559</p><p class="t">基础费销毁，<br>不归出块者</p></div>
+    <div class="ev bi" style="left:1292px;width:300px;top:227px;--d:1.70s"><p class="y">2025</p><p class="n">x402 · 8004</p><p class="t">机器有了支付和身份</p></div>
+    <div class="ev bi last" style="left:1208px;width:300px;text-align:right;bottom:350px;--d:1.95s"><p class="y">2026</p><p class="n">Xenia</p><p class="t">为人的注意力定价<br>押金可退</p></div>
+  </div>
+  <footer class="foot"><span>Simon 1971 · Back 2002 · Nakamoto 2008 §4 · EIP-1559</span><span class="pg"></span></footer>
+</section>
+
+<!-- 9 · ethereum mapping -->
+<section class="slide paper" id="ethereum" data-title="Why Ethereum">
+  <div class="pad">
+    <h2 class="h2 en">Ethereum already answered this.</h2>
+    <div class="map">
+      <div class="hd">ETHEREUM</div><div class="hd"></div><div class="hd">XENIA</div>
+      <div class="a"><b>Gas</b>占用算力，就要付费</div><div class="ar">→</div><div class="a"><b>Bond</b>占用注意力，先交押金</div>
+      <div class="a"><b>Stake</b>以抵押代替许可</div><div class="ar">→</div><div class="a"><b>Record</b>以贡献记录代替押金</div>
+      <div class="a"><b>EIP-1559</b>基础费销毁，出块者不从拥堵中获利</div><div class="ar">→</div><div class="a"><b>Public pool</b>罚没进入公共池，裁决者不从中获利</div>
+    </div>
+  </div>
+  <div class="chain">
+    <div><p class="hd-k">Why on chain</p></div>
+    <div><p class="k">No one can take it</p><p class="v">维护者无法动用押金；罚没只进公共池，逾期由付款人自行取回</p><p class="t">AuthCaptureEscrow</p></div>
+    <div><p class="k">No one owns the record</p><p class="v">证明公开在链上，即使我们的服务停止，也能独立核验</p><p class="t">EAS · EIP-712</p></div>
+    <div><p class="k">Same rules for all</p><p class="v">押金多少、何时退还、资金去向都写在代码里，对人和 Agent 一视同仁</p><p class="t">x402 · ERC-3009</p></div>
+  </div>
+  <footer class="foot"><span>Xenia · gas for humans</span><span class="pg"></span></footer>
+</section>
+
+<!-- 10 · bond lifecycle -->
+<section class="slide ink" id="bond" data-title="Refundable bond">
+  <div class="pad" style="bottom:auto">
+    <h2 class="h2 en">A refundable bond.</h2>
+    <p class="zh">我为这次请求担保，请你花时间看一看。</p>
+  </div>
+  <div class="flow" id="bondFlow">
+    <div class="vault w" id="vW"><p class="k">Wallet</p><p class="v">贡献者 · 人或 Agent</p></div>
+    <div class="vault e" id="vE"><p class="k">Escrow</p><p class="v">AuthCaptureEscrow</p></div>
+    <div class="vault p" id="vP"><p class="k">Public pool</p><p class="v">社区事先指定</p></div>
+    <p class="verdict acc" id="bondVerdict">锁定中 · 等待审阅</p>
+    <div class="coin" id="coin" style="left:782px">5.00</div>
+    <p class="vnote" id="bondNote">押金锁在合约里，维护者看得到，但拿不走。</p>
+  </div>
+  <div class="rules">
+    <div><p class="k ok">ACCEPTED · 合并</p><p class="v">全额退回，并留下贡献记录</p></div>
+    <div><p class="k ok">GOODFAITH · 善意未采用</p><p class="v">全额退回，认真的尝试不受罚</p></div>
+    <div><p class="k bad">SPAM · 明确的垃圾</p><p class="v">进入公共池，附裁决理由</p></div>
+    <div><p class="k">TIMEOUT · 超过审阅期限</p><p class="v">付款人自行取回，无需任何人许可</p></div>
+  </div>
+  <footer class="foot"><span>x402 auth-capture · ERC-3009 · AuthCaptureEscrow</span><span class="pg"></span></footer>
+</section>
+
+<!-- 11 · network -->
+<section class="slide paper" id="network" data-title="Recognition">
+  <div class="pad" style="bottom:auto">
+    <h2 class="h2 en">Facts travel. Recognition is local.</h2>
+  </div>
+  <div class="net" id="net">
+    <svg viewBox="0 0 1040 580" aria-hidden="true">
+      <path class="edge" id="eA" d="M520 150 C520 260 170 260 170 370"></path>
+      <path class="edge" id="eB" d="M520 150 C520 260 870 260 870 370"></path>
+      <path class="edge rec" id="eAB" d="M340 450 H700"></path>
+    </svg>
+    <div class="nd agent" id="nAg"><p class="k">贡献者</p><p class="v">Agent · ERC-8004</p></div>
+    <div class="nd a" id="nA"><p class="k">amounts 社区</p><p class="v" id="recA">Accepted × 2</p></div>
+    <div class="nd b" id="nB"><p class="k">budgets 社区</p><p class="v" id="polB">认可 amounts 的记录</p></div>
+    <p class="recog" id="recog">budgets 签名认可 →</p>
+  </div>
+  <div class="ticker">
+    <p class="lb" id="tickWhere">本次押金 · budgets · USDC</p>
+    <p class="q zero" id="tickQ">0.00</p>
+  </div>
+  <div class="steps" id="netSteps">
+    <p>首次向 amounts 提交，押 5.00</p>
+    <p>PR 合并，押金退回，留下一条记录</p>
+    <p>再次提交，押金降到 0.50</p>
+    <p class="cur">budgets 认可 amounts 的记录，免押</p>
+    <p>budgets 撤回认可，押金回到 5.00</p>
+  </div>
+  <footer class="foot"><span>EAS 贡献证明 · EIP-712 社区认可签名</span><span class="pg"></span></footer>
+</section>
+
+<!-- 12 · architecture -->
+<section class="slide ink" id="arch" data-title="Architecture">
+  <div class="pad" style="bottom:auto">
+    <h2 class="h2 en">From one PR to the next quote.</h2>
+  </div>
+  <div class="arch" id="archGrid">
+    <div class="blk" data-i="0"><span class="i">01</span><p class="k">GitHub PR</p><p class="v">App 接收事件<br>以必需检查拦截</p></div>
+    <div class="blk" data-i="1"><span class="i">02</span><p class="k">报价</p><p class="v">社区政策<br>+ 贡献记录</p></div>
+    <div class="blk" data-i="2"><span class="i">03</span><p class="k">支付条件</p><p class="v">x402 返回<br>auth-capture 要求</p></div>
+    <div class="blk" data-i="3"><span class="i">04</span><p class="k">签名授权</p><p class="v">USDC · ERC-3009<br>付款人不付 gas</p></div>
+    <div class="blk" data-i="4"><span class="i">05</span><p class="k">托管</p><p class="v">AuthCaptureEscrow<br>收款方写死为公共池</p></div>
+    <div class="blk" style="border-color:transparent" aria-hidden="true"></div>
+    <div class="blk ret" data-i="8"><span class="i">09</span><p class="k">下一次报价</p><p class="v">记录越多<br>押金越低 ↺</p></div>
+    <div class="blk" data-i="7"><span class="i">08</span><p class="k">贡献证明</p><p class="v">EAS<br>属于贡献者本人</p></div>
+    <div class="blk" data-i="6"><span class="i">07</span><p class="k">结算</p><p class="v">退回钱包<br>或进入公共池</p></div>
+    <div class="blk" data-i="5"><span class="i">06</span><p class="k">裁决</p><p class="v">维护者处理 PR<br>EIP-712 签名</p></div>
+  </div>
+  <div class="agentbar">
+    <p class="k">Agents too</p>
+    <p class="v">Agent 走同一条流程：通过 MCP 读取规则、查询报价、提交 PR、缴纳押金、导出护照；ERC-8004 记录它的身份与评价。</p>
+  </div>
+  <footer class="foot"><span>GitHub App · x402 · ERC-3009 · AuthCaptureEscrow · EAS · EIP-712 · MCP · ERC-8004</span><span class="pg"></span></footer>
+</section>
+
+<!-- 13 · demo -->
+<section class="slide paper" id="demo" data-title="Demo">
+  <div class="pad" style="bottom:auto">
+    <h2 class="h2 en">Demo: one agent, four steps.</h2>
+    <p class="zh">真实 GitHub PR，公共 Base Sepolia 上的测试 USDC、托管与贡献证明。</p>
+  </div>
+  <div class="demo-showcase">
+    <div class="demo-window"><p class="demo-window-label">Base Sepolia · gas-for-humans-shenzhen[bot]</p><div class="demo-frames"><img src="img/demo-1-bond.png" alt="amounts #3 的五美元测试 USDC 押金、首次报价依据和退款凭证" class="is-current" aria-hidden="false" width="1440" height="900"><img src="img/demo-2-quote.png" alt="amounts #4 的 0.50 测试 USDC 押金，历史报价依据为 1 merged contribution(s): ×0.1" class="" aria-hidden="true" width="1440" height="900"><img src="img/demo-3-recognize.png" alt="budgets 认可 amounts 的社区关系，以及 PR #2 依据两条贡献记录免押进入审阅" class="" aria-hidden="true" width="1440" height="900"><img src="img/demo-4-verify.png" alt="Base Sepolia 上 amounts #3 的 EAS 链上证明：裁决为接受，押金 5 USDC" class="" aria-hidden="true" width="1920" height="1200"></div></div>
+    <div><ol class="demo-steps"><li><button type="button" class="demo-step" data-demo-step="0" aria-current="step"><span class="lb">01 Bond 押金</span><span class="k">押 5.00，合并后退回</span><span class="v">amounts #3 · 第一条贡献证明</span></button></li><li><button type="button" class="demo-step" data-demo-step="1"><span class="lb">02 Quote 报价</span><span class="k">第二次只押 0.50</span><span class="v">amounts #4 · 已有 1 条合并记录</span></button></li><li><button type="button" class="demo-step" data-demo-step="2"><span class="lb">03 Recognize 互认</span><span class="k">budgets 认可，免押</span><span class="v">budgets #2 · 认可两条记录</span></button></li><li><button type="button" class="demo-step" data-demo-step="3"><span class="lb">04 Verify 核验</span><span class="k">链上证明，任何人可查</span><span class="v">EAS · amounts #3 · 押金 5 USDC</span></button></li></ol><button type="button" class="demo-toggle" id="demoToggle">暂停轮播</button></div>
+  </div>
+  <div class="demo-print"><figure><img src="img/demo-1-bond.png" alt="amounts #3 的五美元测试 USDC 押金、首次报价依据和退款凭证"><figcaption><p class="lb">Bond 押金</p><p class="k">押 5.00，合并后退回</p><p class="v">amounts #3 · 第一条贡献证明</p></figcaption></figure><figure><img src="img/demo-2-quote.png" alt="amounts #4 的 0.50 测试 USDC 押金，历史报价依据为 1 merged contribution(s): ×0.1"><figcaption><p class="lb">Quote 报价</p><p class="k">第二次只押 0.50</p><p class="v">amounts #4 · 已有 1 条合并记录</p></figcaption></figure><figure><img src="img/demo-3-recognize.png" alt="budgets 认可 amounts 的社区关系，以及 PR #2 依据两条贡献记录免押进入审阅"><figcaption><p class="lb">Recognize 互认</p><p class="k">budgets 认可，免押</p><p class="v">budgets #2 · 认可两条记录</p></figcaption></figure><figure><img src="img/demo-4-verify.png" alt="Base Sepolia 上 amounts #3 的 EAS 链上证明：裁决为接受，押金 5 USDC"><figcaption><p class="lb">Verify 核验</p><p class="k">链上证明，任何人可查</p><p class="v">EAS · amounts #3 · 押金 5 USDC</p></figcaption></figure></div>
+  <footer class="foot"><span>ERC-8004 Agent #10391 · amounts #3 / #4 · budgets #2</span><span class="pg"></span></footer>
+</section>
+
+<!-- 14 · roadmap -->
+<section class="slide paper" id="roadmap" data-title="Roadmap">
+  <div class="pad" style="bottom:auto">
+    <h2 class="h2 en">One door, many entrances.</h2>
+  </div>
+  <div class="road">
+    <div class="bi" style="--d:.1s"><p class="w">Today</p><p class="s">已跑通</p><p class="t">开源 PR：在真实 GitHub 仓库中跑通押金、证明与互认</p></div>
+    <div class="bi" style="--d:.3s"><p class="w">Next</p><p class="s">下一步</p><p class="t">DAO 治理论坛与反馈渠道</p></div>
+    <div class="bi" style="--d:.5s"><p class="w">Scale</p><p class="s">之后</p><p class="t">资助申请：交付记录跨计划通用，并可用于回溯资助</p></div>
+    <div class="bi" style="--d:.7s"><p class="w">Future</p><p class="s">长期</p><p class="t">所有等待人类注意力的入口，包括 Agent 主动找人</p></div>
+  </div>
+  <footer class="foot"><span>Xenia · gas for humans</span><span class="pg"></span></footer>
+</section>
+
+<!-- 15 · theses -->
+<section class="slide ink" id="theses" data-title="We believe">
+  <div class="pad" style="bottom:auto"><p class="lb acc">We believe</p></div>
+  <div class="theses">
+    <div class="thesis bi" style="--d:.1s"><p class="k">Thesis 1</p><div class="v"><p class="e">Attention is the scarcest commons of the AI age.</p></div></div>
+    <div class="thesis bi" style="--d:.3s"><p class="k">Thesis 2</p><div class="v"><p class="e">Open communities should not survive by closing the door.</p></div></div>
+    <div class="thesis bi" style="--d:.5s"><p class="k">Thesis 3</p><div class="v"><p class="e">Make AI answerable for its requests, not banned from asking.</p></div></div>
+  </div>
+  <footer class="foot"><span>Xenia · gas for humans</span><span class="pg"></span></footer>
+</section>
+
+<!-- 16 · close -->
+<section class="slide ink" id="close" data-title="Thanks">
+  <img class="portrait bf" src="img/homer-ink.png" alt="荷马胸像的点阵画像">
+  <div class="close">
+    <p class="big en bi">A stranger can still walk in with one honest contribution, and earn trust by staying.</p>
+        <div class="sig bi" style="--d:.4s"><span class="x">Xenia</span><span class="g">gas for humans</span></div>
+    <p class="src bi" style="--d:.6s">Thanks · presented by Nobody</p>
+  </div>
+  <footer class="foot"><span>Xenia · gas for humans</span><span class="pg"></span></footer>
+</section>
+
+</div>
+</div>
+
+<nav class="bar" aria-label="翻页">
+  <button type="button" id="prevBtn" aria-label="上一页">←</button>
+  <span id="counter">1</span>
+  <div class="prog" aria-hidden="true"><i id="progFill"></i></div>
+  <span class="ttl" id="slideTitle">Cover</span>
+  <button type="button" id="nextBtn" aria-label="下一页">→</button>
+</nav>
+
+<script>
+(() => {
+  const stage = document.getElementById("stage");
+  /* full version: html[data-version="full"] (the full standalone build) or #full in the address */
+  const full = document.documentElement.dataset.version === "full" || location.hash === "#full";
+  if (!full) stage.querySelectorAll(".slide[data-extra]").forEach((el) => el.remove());
+  const slides = Array.from(stage.querySelectorAll(".slide"));
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const total = slides.length;
+  let cur = 0;
+  const anims = {};
+  const sleep = (ms, token) => new Promise((res, rej) => setTimeout(() => (token.stop ? rej(new Error("stopped")) : res()), ms));
+
+  slides.forEach((s, i) => {
+    s.querySelectorAll(".pg").forEach((el) => { el.textContent = String(i + 1).padStart(2, "0") + " / " + total; });
+  });
+
+  function fit() {
+    const pad = Math.max(16, 0);
+    const w = window.innerWidth - pad * 2;
+    const h = window.innerHeight - pad * 2 - 44;
+    const s = Math.max(0.05, Math.min(w / 1920, h / 1080));
+    stage.style.transform = "scale(" + s + ")";
+    stage.style.left = (window.innerWidth - 1920 * s) / 2 + "px";
+    stage.style.top = Math.max(pad, (window.innerHeight - 44 - 1080 * s) / 2) + "px";
+  }
+
+  function show(i) {
+    i = Math.max(0, Math.min(total - 1, i));
+    const prev = slides[cur];
+    if (anims[prev.id] && anims[prev.id].stop) anims[prev.id].stop();
+    prev.classList.remove("is-active", "play");
+    cur = i;
+    const s = slides[cur];
+    s.classList.add("is-active");
+    void s.offsetWidth;
+    if (!reduce) s.classList.add("play");
+    if (anims[s.id] && anims[s.id].start && !reduce) anims[s.id].start();
+    document.getElementById("counter").textContent = cur + 1 + " / " + total;
+    document.getElementById("progFill").style.width = ((cur + 1) / total) * 100 + "%";
+    document.getElementById("slideTitle").textContent = s.dataset.title || "";
+    try { history.replaceState(null, "", "#" + s.id); } catch (e) {}
+  }
+
+  /* 5 · flood: requests arrive faster and faster, one reviewer serves at a fixed pace */
+  anims.flood = (() => {
+    const c = document.getElementById("floodCanvas");
+    const ctx = c.getContext("2d");
+    const out = document.getElementById("queueN");
+    const W = 1080, H = 540, QX = 560, RX = 960;
+    let raf = 0, t0 = 0, last = 0, acc = 0, serveAcc = 0, parts = [], queue = 0, flash = 0;
+    ctx.scale(2, 2);
+    const css = getComputedStyle(document.documentElement);
+    const col = { line: css.getPropertyValue("--ink-line").trim(), fg: css.getPropertyValue("--on-ink").trim(), mute: css.getPropertyValue("--on-ink-mute").trim(), amber: css.getPropertyValue("--amber").trim() };
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      ctx.strokeStyle = col.line; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(QX - 20, 40); ctx.lineTo(QX - 20, H - 40); ctx.stroke();
+      ctx.fillStyle = col.fg;
+      parts.forEach((p) => { ctx.globalAlpha = p.a; ctx.fillStyle = p.ag ? col.amber : col.fg; ctx.fillRect(p.x, p.y, 8, 8); });
+      ctx.globalAlpha = 1;
+      const cols = 14, cell = 22;
+      for (let i = 0; i < Math.min(queue, cols * 20); i++) {
+        const cx = QX + (i % cols) * cell, cy = H - 60 - Math.floor(i / cols) * cell;
+        ctx.fillStyle = i < 4 ? col.amber : col.mute;
+        ctx.fillRect(cx, cy, 14, 14);
+      }
+      ctx.strokeStyle = flash > 0 ? col.amber : col.fg; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.arc(RX + 60, H / 2, 46, 0, Math.PI * 2); ctx.stroke();
+      ctx.fillStyle = col.fg; ctx.beginPath(); ctx.arc(RX + 60, H / 2 - 12, 13, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(RX + 60, H / 2 + 30, 24, Math.PI, 0); ctx.fill();
+      out.textContent = String(queue);
+    }
+    function frame(t) {
+      if (!t0) { t0 = t; last = t; }
+      const dt = Math.min(0.05, (t - last) / 1000); last = t;
+      const el = (t - t0) / 1000;
+      const rate = Math.min(36, 6 + el * el * 0.42);
+      acc += dt * rate;
+      while (acc > 1) { acc -= 1; parts.push({ x: 0, y: 60 + Math.random() * (H - 140), v: 300 + Math.random() * 160, a: 0.6 + Math.random() * 0.4, ag: Math.random() < Math.min(0.75, 0.2 + el * 0.05) }); }
+      parts.forEach((p) => { p.x += p.v * dt; });
+      const arrived = parts.filter((p) => p.x >= QX - 30).length;
+      parts = parts.filter((p) => p.x < QX - 30);
+      queue += arrived;
+      serveAcc += dt;
+      if (serveAcc > 0.8 && queue > 0) { serveAcc = 0; queue -= 1; flash = 0.25; }
+      flash = Math.max(0, flash - dt);
+      draw();
+      if (el > 15) { t0 = 0; parts = seed(); queue = 0; }
+      raf = requestAnimationFrame(frame);
+    }
+    const seed = () => Array.from({ length: 22 }, () => ({ x: Math.random() * (QX - 60), y: 60 + Math.random() * (H - 140), v: 300 + Math.random() * 160, a: 0.6 + Math.random() * 0.4, ag: Math.random() < 0.25 }));
+    parts = seed(); queue = 96; draw();
+    return {
+      start() { cancelAnimationFrame(raf); t0 = 0; acc = 0; serveAcc = 0; parts = seed(); queue = 0; raf = requestAnimationFrame(frame); },
+      stop() { cancelAnimationFrame(raf); }
+    };
+  })();
+
+  /* 13 · bond: one coin, four outcomes */
+  anims.bond = (() => {
+    const coin = document.getElementById("coin");
+    const verdict = document.getElementById("bondVerdict");
+    const note = document.getElementById("bondNote");
+    const vE = document.getElementById("vE"), vW = document.getElementById("vW"), vP = document.getElementById("vP");
+    const X = { w: 130, e: 782, p: 1434 };
+    let token = { stop: true };
+    const cases = [
+      { v: "ACCEPTED · 合并", cls: "ok", to: "w", n: "PR 合并：5.00 USDC 全额退回，并留下一条贡献记录。" },
+      { v: "GOODFAITH · 善意未采用", cls: "ok", to: "w", n: "认真但未被采用：同样全额退回。" },
+      { v: "SPAM · 明确的垃圾", cls: "bad", to: "p", n: "判定为垃圾：5.00 USDC 进入公共池，维护者拿不到。" },
+      { v: "TIMEOUT · 14 天无人处理", cls: "", to: "w", n: "14 天无人处理：付款人自行取回。" }
+    ];
+    function place(x) { coin.getAnimations().forEach((a) => a.cancel()); coin.style.left = x + "px"; }
+    async function move(from, to, ms) {
+      const a = coin.animate([{ left: from + "px" }, { left: to + "px" }], { duration: ms, easing: "cubic-bezier(.65,0,.25,1)", fill: "forwards" });
+      await a.finished; coin.style.left = to + "px"; a.cancel();
+    }
+    async function run(tk) {
+      for (;;) {
+        for (const c of cases) {
+          place(X.w); verdict.textContent = "交押金"; verdict.className = "verdict acc"; note.textContent = "没有记录的贡献者签名，押入 5.00 USDC。";
+          await sleep(700, tk); await move(X.w, X.e, 900); if (tk.stop) return;
+          vE.classList.add("hot"); verdict.textContent = "锁定中 · 等待审阅"; note.textContent = "押金锁在合约里，维护者看得到，但拿不走。";
+          await sleep(1300, tk);
+          verdict.textContent = c.v; verdict.className = "verdict " + c.cls; note.textContent = c.n;
+          await sleep(500, tk); vE.classList.remove("hot");
+          await move(X.e, X[c.to], 900); if (tk.stop) return;
+          (c.to === "p" ? vP : vW).classList.add("hot");
+          await sleep(1700, tk); vP.classList.remove("hot"); vW.classList.remove("hot");
+        }
+      }
+    }
+    return {
+      start() { token.stop = true; token = { stop: false }; run(token).catch(() => {}); },
+      stop() { token.stop = true; place(X.e); vE.classList.remove("hot"); vW.classList.remove("hot"); vP.classList.remove("hot"); }
+    };
+  })();
+
+  /* 14 · network: records travel, recognition is each community's call */
+  anims.network = (() => {
+    const eA = document.getElementById("eA"), eB = document.getElementById("eB"), eAB = document.getElementById("eAB");
+    const nA = document.getElementById("nA"), nB = document.getElementById("nB");
+    const recA = document.getElementById("recA"), polB = document.getElementById("polB"), recog = document.getElementById("recog");
+    const tickQ = document.getElementById("tickQ"), tickWhere = document.getElementById("tickWhere");
+    const steps = Array.from(document.querySelectorAll("#netSteps p"));
+    const states = [
+      { at: "a", q: "5.00", rec: 0, link: null, s: 0 },
+      { at: "a", q: "5.00", rec: 1, link: null, s: 1, refund: true },
+      { at: "a", q: "0.50", rec: 1, link: null, s: 2 },
+      { at: "a", q: "0.50", rec: 2, link: null, s: 2, refund: true },
+      { at: "b", q: "0.00", rec: 2, link: "on", s: 3 },
+      { at: "b", q: "5.00", rec: 2, link: "off", s: 4 },
+      { at: "b", q: "0.00", rec: 2, link: "on", s: 3 }
+    ];
+    let timer = 0, i = 0;
+    function apply(st) {
+      eA.classList.toggle("on", st.at === "a"); eB.classList.toggle("on", st.at === "b");
+      nA.classList.toggle("here", st.at === "a"); nB.classList.toggle("here", st.at === "b");
+      recA.textContent = st.rec ? "Accepted × " + st.rec + (st.refund ? " · 押金已退回" : "") : "还没有记录";
+      eAB.style.display = st.link ? "" : "none"; recog.style.visibility = st.link ? "visible" : "hidden";
+      eAB.classList.toggle("off", st.link === "off"); recog.classList.toggle("off", st.link === "off");
+      recog.textContent = st.link === "off" ? "budgets 取消认可 ×" : "budgets 签名认可 →";
+      polB.textContent = st.link === "on" ? "认可 amounts 的记录" : st.link === "off" ? "不再认可 amounts" : "尚未认可其他社区";
+      tickQ.textContent = st.q; tickQ.classList.toggle("zero", st.q === "0.00");
+      tickWhere.textContent = "本次押金 · " + (st.at === "a" ? "amounts" : "budgets") + " · USDC";
+      steps.forEach((p, k) => p.classList.toggle("cur", k === st.s));
+    }
+    apply(states[4]);
+    return {
+      start() { clearInterval(timer); i = 0; apply(states[0]); timer = setInterval(() => { i = (i + 1) % states.length; apply(states[i]); }, 2300); },
+      stop() { clearInterval(timer); apply(states[4]); }
+    };
+  })();
+
+  /* 16 · architecture: a pulse walks the pipeline in order */
+  anims.arch = (() => {
+    const blocks = Array.from(document.querySelectorAll("#archGrid .blk[data-i]")).sort((a, b) => a.dataset.i - b.dataset.i);
+    let timer = 0, i = 0;
+    return {
+      start() { clearInterval(timer); i = 0; timer = setInterval(() => { blocks.forEach((b) => b.classList.remove("on")); blocks[i].classList.add("on"); i = (i + 1) % blocks.length; }, 750); },
+      stop() { clearInterval(timer); blocks.forEach((b) => b.classList.remove("on")); }
+    };
+  })();
+
+  /* 18 · numbers count up */
+  anims.numbers = (() => {
+    const els = Array.from(document.querySelectorAll("#numbers [data-count]"));
+    let raf = 0;
+    return {
+      start() {
+        const t0 = performance.now();
+        cancelAnimationFrame(raf);
+        const tick = (t) => {
+          const k = Math.min(1, (t - t0) / 1400), e = 1 - Math.pow(1 - k, 3);
+          els.forEach((el) => { el.textContent = (parseFloat(el.dataset.count) * e).toFixed(1) + el.dataset.suffix; });
+          if (k < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+      },
+      stop() { cancelAnimationFrame(raf); els.forEach((el) => { el.textContent = el.dataset.count + el.dataset.suffix; }); }
+    };
+  })();
+
+
+  /* Screenshot carousel: entering the slide starts at Bond; choosing a step pauses. */
+  anims.demo = (() => {
+    const images = Array.from(document.querySelectorAll(".demo-frames img"));
+    const buttons = Array.from(document.querySelectorAll(".demo-step"));
+    const toggle = document.getElementById("demoToggle");
+    let index = 0, timer = 0;
+    function select(i) {
+      index = i;
+      images.forEach((img, j) => { img.classList.toggle("is-current", i === j); img.setAttribute("aria-hidden", String(i !== j)); });
+      buttons.forEach((button, j) => { if (i === j) button.setAttribute("aria-current", "step"); else button.removeAttribute("aria-current"); });
+    }
+    function stop() { clearInterval(timer); timer = 0; toggle.textContent = "播放四步"; }
+    function play() { stop(); timer = setInterval(() => select((index + 1) % images.length), 5000); toggle.textContent = "暂停轮播"; }
+    buttons.forEach((button, i) => button.addEventListener("click", () => { stop(); select(i); }));
+    toggle.addEventListener("click", () => timer ? stop() : play());
+    document.querySelector(".demo-showcase").addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") event.stopPropagation();
+    });
+    stop();
+    return { start() { select(0); play(); }, stop };
+  })();
+
+  function overview(on) {
+    document.body.classList.toggle("ov", on);
+    if (on) { slides.forEach((s) => { if (anims[s.id] && anims[s.id].stop) anims[s.id].stop(); s.classList.remove("play"); }); }
+    else { fit(); show(cur); }
+  }
+  /* page mode (the website): slides stack down the page at its width; each plays when it scrolls into view */
+  if (document.documentElement.dataset.mode === "page") {
+    document.body.classList.add("page");
+    const size = () => { const w = stage.clientWidth; slides.forEach((s) => { s.style.zoom = w / 1920; }); };
+    size();
+    window.addEventListener("resize", size);
+    const seen = new IntersectionObserver((entries) => entries.forEach((en) => {
+      const s = en.target, a = anims[s.id];
+      if (en.isIntersecting) {
+        if (s.classList.contains("play") || reduce) return;
+        s.classList.add("play");
+        if (a && a.start) a.start();
+      } else {
+        s.classList.remove("play");
+        if (a && a.stop) a.stop();
+      }
+    }), { threshold: 0.45 });
+    slides.forEach((s) => seen.observe(s));
+    return;
+  }
+
+  stage.addEventListener("click", (e) => {
+    if (!document.body.classList.contains("ov")) return;
+    const s = e.target.closest(".slide"); if (!s) return;
+    e.stopPropagation(); cur = slides.indexOf(s); overview(false);
+  });
+  document.getElementById("prevBtn").addEventListener("click", () => show(cur - 1));
+  document.getElementById("nextBtn").addEventListener("click", () => show(cur + 1));
+  document.addEventListener("keydown", (e) => {
+    if (document.body.classList.contains("ov") && e.key !== "o" && e.key !== "O" && e.key !== "Escape") return;
+    if (["ArrowRight", "PageDown", " ", "Enter"].includes(e.key)) { e.preventDefault(); show(cur + 1); }
+    else if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) { e.preventDefault(); show(cur - 1); }
+    else if (e.key === "Home") show(0);
+    else if (e.key === "End") show(total - 1);
+    else if (e.key === "o" || e.key === "O" || e.key === "Escape") overview(e.key === "Escape" ? false : !document.body.classList.contains("ov"));
+  });
+  document.getElementById("viewport").addEventListener("click", (e) => {
+    if (document.body.classList.contains("ov") || e.target.closest("a, button")) return;
+    show(e.clientX > window.innerWidth * 0.35 ? cur + 1 : cur - 1);
+  });
+  let sx = null;
+  document.addEventListener("pointerdown", (e) => { sx = e.clientX; });
+  document.addEventListener("pointerup", (e) => { if (sx !== null && Math.abs(e.clientX - sx) > 60 && e.pointerType !== "mouse") show(e.clientX < sx ? cur + 1 : cur - 1); sx = null; });
+  window.addEventListener("resize", fit);
+  window.addEventListener("hashchange", () => {
+    if (location.hash === "#overview") { overview(true); return; }
+    const i = slides.findIndex((x) => "#" + x.id === location.hash);
+    if (i >= 0 && i !== cur) { if (document.body.classList.contains("ov")) { cur = i; overview(false); } else show(i); }
+  });
+  fit();
+  const initialHash = location.hash;
+  const start = slides.findIndex((s) => "#" + s.id === initialHash);
+  slides[0].classList.add("is-active");
+  show(start > 0 ? start : 0);
+  if (initialHash === "#overview") overview(true);
+})();
+</script>
