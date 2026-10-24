@@ -1,0 +1,9 @@
+{
+  "name": "@gfh/mcp",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "bin": { "gfh-mcp": "src/index.ts" },
+  "scripts": { "start": "node src/index.ts" },
+  "dependencies": { "@gfh/shared": "*", "@modelcontextprotocol/sdk": "^1.32.1", "viem": "^2.57.10", "zod": "^4.6.7" }
+}

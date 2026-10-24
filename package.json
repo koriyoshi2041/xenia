@@ -1,0 +1,48 @@
+{
+  "name": "xenia",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/shared",
+    "server",
+    "web",
+    "mcp"
+  ],
+  "scripts": {
+    "test": "node --test server/src/chain/*.test.ts server/src/runtime/*.test.ts server/src/x402/*.test.ts",
+    "typecheck": "tsc -p packages/shared && tsc -p server && tsc -p mcp && tsc -p web && tsc -p tsconfig.scripts.json",
+    "dev:server": "npm run dev -w server",
+    "dev:web": "npm run dev -w web",
+    "dev": "node scripts/demo.mjs",
+    "demo": "npm run demo:workbench",
+    "demo:agent": "node --env-file=.env scripts/agent-contribute.ts",
+    "verify:escrow": "node scripts/verify-escrow.ts",
+    "build:contracts": "cd contracts && forge build",
+    "test:contracts": "cd contracts && forge test --fork-url https://sepolia.base.org -vv",
+    "test:system": "npm run build:contracts && node scripts/test-system.mjs",
+    "deploy": "npm run build:contracts && node --env-file=.env scripts/deploy.ts",
+    "start": "node --env-file=.env server/src/index.ts",
+    "setup:contracts": "forge install --root \"$PWD/contracts\" --no-git foundry-rs/forge-std@9964d28dd139cbceb8a7c7c3e182c29cd9888bfd OpenZeppelin/openzeppelin-contracts@v5.4.0",
+    "setup:local": "node scripts/setup-local.ts",
+    "preflight": "node --env-file=.env scripts/preflight.ts",
+    "setup:github": "node --env-file=.env scripts/github-app-setup.ts",
+    "setup:communities": "node --env-file=.env scripts/communities.ts",
+    "agent:contribute": "node --env-file=.env scripts/agent-contribute.ts",
+    "build:web": "npm run build -w web",
+    "demo:fork": "npm run build:contracts && node scripts/fork-workbench.mjs",
+    "register:agent": "node --env-file=.env scripts/register-agent.ts",
+    "dev:webhooks": "node --env-file=.env scripts/webhook-relay.ts",
+    "passport": "node --env-file-if-exists=.env scripts/passport.ts",
+    "demo:rehearse": "node --env-file=.env --env-file=.env.fork scripts/rehearse.ts",
+    "demo:workbench": "npm run build:contracts && node --env-file=.env scripts/workbench.mjs",
+    "demo:public": "node --env-file=.env scripts/workbench.mjs --public"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "smee-client": "^5.0.0",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
