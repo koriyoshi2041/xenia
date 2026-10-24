@@ -387,6 +387,7 @@ body.page .bar { display: none; }
 .site-head nav a { color: var(--on-ink-mute); }
 .site-head nav a:hover, .site-head nav a:focus-visible { color: var(--amber); }
 .site-head nav a.present { color: var(--amber); }
+.site-head nav a[aria-current="page"] { color: var(--amber); box-shadow: inset 0 -2px 0 var(--amber); padding-bottom: 6px; }
 body.page { padding-top: calc(60px + clamp(0px, 1.6vw, 28px) + env(safe-area-inset-top, 0px)); }
 body.page .slide { scroll-margin-top: 72px; }
 .site-foot { max-width: 1680px; margin: clamp(0px, 1.6vw, 28px) auto 0; padding: 56px max(20px, env(safe-area-inset-left, 0px)) 72px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 48px; color: var(--on-ink-mute); border-top: 1px solid #2a2823; }
@@ -406,7 +407,7 @@ body.page .slide { scroll-margin-top: 72px; }
 
 <header class="site-head">
   <a class="brand" href="./"><span class="x">Xenia</span><span class="g">gas for humans</span></a>
-  <nav aria-label="站点"><a class="present" href="present.html">Present</a><a href="xenia-deck.pdf">PDF</a><a href="https://github.com/koriyoshi2041/xenia">GitHub</a></nav>
+  <nav aria-label="站点"><a href="essay.html">Essay</a><a class="present" href="present.html">Present</a><a href="xenia-deck.pdf">PDF</a><a href="https://github.com/koriyoshi2041/xenia">GitHub</a></nav>
 </header>
 <div class="viewport" id="viewport">
 <div class="stage" id="stage">
@@ -725,7 +726,7 @@ body.page .slide { scroll-margin-top: 72px; }
     <p>AI 让提交请求的成本接近于零，但阅读和审阅仍然依赖人的注意力。热门开源项目一个月就会收到上万个 PR，维护者只能关闭外部贡献，认真的新人和守规矩的 Agent 也一起被挡在门外。</p>
     <p>Xenia 是开放社区的准入协议。没有记录的贡献者先交一笔可退押金：PR 被接受或善意关闭时全额退回，只有判定为垃圾时才进入公共池。每次的结果都写成 EAS 链上证明，归贡献者所有。其他社区可以签名认可这些记录，认可越多，押金越低，直至免押。</p>
     <p>押金由托管合约持有，维护者无法动用。人和 Agent 通过 x402 用同一种方式付款；Agent 以 ERC-8004 身份积累记录，并能通过 MCP 走完整个流程。这套系统已经在真实的 GitHub 仓库和公共测试网 Base Sepolia 上跑通，下一步会扩展到 DAO 治理讨论和资助申请。</p>
-    <div class="links"><a href="present.html">Present</a><a href="xenia-deck.pdf">PDF</a><a href="https://github.com/koriyoshi2041/xenia">GitHub</a><a href="https://base-sepolia.easscan.org/attestation/view/0x45243f5cff5458d25de9c67e0aed089db86e8335ac0abc2279b39db4ad90d254">On-chain proof</a></div>
+    <div class="links"><a href="essay.html">Essay</a><a href="present.html">Present</a><a href="xenia-deck.pdf">PDF</a><a href="https://github.com/koriyoshi2041/xenia">GitHub</a><a href="https://base-sepolia.easscan.org/attestation/view/0x45243f5cff5458d25de9c67e0aed089db86e8335ac0abc2279b39db4ad90d254">On-chain proof</a></div>
   </div>
 </footer>
 

@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="zh">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Xenia 是开放社区的准入协议：陌生人先交一笔可退的押金进门，再用贡献积累信任。An admission protocol for open communities.">
+<meta property="og:title" content="Essay · Xenia">
+<meta property="og:description" content="Xenia 是开放社区的准入协议：陌生人先交一笔可退的押金进门，再用贡献积累信任。An admission protocol for open communities.">
+<meta property="og:image" content="https://xenia-silk.vercel.app/og.jpg">
+<meta property="og:url" content="https://xenia-silk.vercel.app/essay.html">
+<link rel="canonical" href="https://xenia-silk.vercel.app/essay.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0a09">
+<title>Essay · Xenia · gas for humans</title>
+<style>
+:root {
+  color-scheme: dark;
+  --chrome: #0b0a09;
+  --ink: #121110; --ink-2: #1b1a17; --ink-line: #34312c; --on-ink: #ece8df; --on-ink-mute: #a39d91;
+  --paper: #f2f0ea; --paper-2: #e7e4dc; --paper-line: #cfcbc1; --on-paper: #161614; --on-paper-mute: #5e5b55;
+  --amber: #e8b04b; --amber-deep: #8c5a0e; --on-amber: #1a140a;
+  --ok: #7fd18b; --ok-deep: #2f6e43; --bad: #f07167; --bad-deep: #a8322a;
+  --display: "Gloock", "GFS Didot", Georgia, serif;
+  --greek: "GFS Didot", "Gloock", Georgia, serif;
+  --shout: "Smiley Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --text: "Zhuque Fangsong", "Noto Serif SC", "Songti SC", "SimSun", serif;
+  --digits: "Departure Mono", "Smiley Sans", ui-monospace, monospace;
+  --mono: "Monaspace Krypton", "Zhuque Fangsong", ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+@font-face { font-family: "Gloock"; src: url("fonts/Gloock-Latin.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "GFS Didot"; src: url("fonts/GFSDidot-Greek.woff2") format("woff2"); unicode-range: U+0370-03FF; font-display: block; }
+@font-face { font-family: "Smiley Sans"; src: url("fonts/SmileySans-Oblique.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Zhuque Fangsong"; src: url("fonts/ZhuqueFangsong-GB.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Departure Mono"; src: url("fonts/DepartureMono-Regular.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Monaspace Krypton"; src: url("fonts/MonaspaceKrypton-Var.woff2") format("woff2"); font-weight: 200 800; font-display: block; }
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-padding-top: 96px; -webkit-text-size-adjust: 100%; }
+body.essay { margin: 0; background-color: var(--ink); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"), radial-gradient(1500px 900px at 100% 108%, rgba(232, 176, 75, .10), transparent 62%), radial-gradient(1100px 760px at -6% -10%, rgba(255, 236, 200, .05), transparent 60%); color: var(--on-ink); background-attachment: fixed; color: #d9d3c7; font: 400 20px/1.95 var(--text); }
+body.essay ::selection { background: rgba(232, 176, 75, .35); color: var(--on-ink); }
+.progress { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: var(--amber); z-index: 30; }
+.essay-wrap { display: grid; grid-template-columns: 240px minmax(0, 680px); gap: 96px; justify-content: center; padding: 150px max(24px, env(safe-area-inset-left, 0px)) 80px; position: relative; }
+.homer { position: absolute; top: 40px; right: 0; width: min(40vw, 660px); max-width: none; opacity: .16; pointer-events: none; -webkit-mask-image: linear-gradient(to left, #000 35%, transparent 92%), linear-gradient(to top, transparent 0, #000 45%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to left, #000 35%, transparent 92%), linear-gradient(to top, transparent 0, #000 45%); mask-composite: intersect; }
+.toc { position: sticky; top: 108px; align-self: start; font: 400 14px/1.5 var(--text); }
+.toc p { margin: 0 0 18px; font: 500 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--amber); }
+.toc ol { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--ink-line); }
+.toc li a { display: grid; grid-template-columns: 30px 1fr; padding: 6px 0 6px 16px; margin-left: -1px; border-left: 1px solid transparent; color: var(--on-ink-mute); text-decoration: none; transition: color .2s, border-color .2s; }
+.toc li a span { font: 400 13px/1.6 var(--digits); color: #6f6a61; }
+.toc li a:hover { color: var(--on-ink); }
+.toc li a.on { color: var(--on-ink); border-left-color: var(--amber); }
+.toc li a.on span { color: var(--amber); }
+article { position: relative; min-width: 0; }
+article h2 { margin: 96px 0 28px; font: 400 34px/1.35 var(--text); color: var(--on-ink); text-wrap: balance; }
+article h2:first-child { margin-top: 0; }
+article h2 .no { display: block; margin-bottom: 14px; font: 400 18px/1 var(--digits); color: var(--amber); letter-spacing: .04em; }
+article p { margin: 0 0 1.15em; text-wrap: pretty; }
+article strong { font-weight: 400; color: var(--on-ink); background: linear-gradient(transparent 64%, rgba(232, 176, 75, .26) 0); }
+article blockquote { margin: 34px 0; padding: 4px 0 4px 30px; border-left: 2px solid var(--amber); font: 400 30px/1.45 "Gloock", "Zhuque Fangsong", serif; color: var(--on-ink); }
+article ul, article ol { margin: 0 0 1.3em; padding: 0; list-style: none; }
+article li { position: relative; padding-left: 30px; margin-bottom: .45em; }
+article ul li::before { content: ""; position: absolute; left: 4px; top: .78em; width: 8px; height: 8px; background: var(--amber); }
+article ol { counter-reset: n; }
+article ol li { counter-increment: n; }
+article ol li::before { content: counter(n, decimal-leading-zero); position: absolute; left: 0; top: .12em; font: 400 15px/1.95 var(--digits); color: var(--amber); }
+article code { font: 400 .82em/1 var(--mono); color: var(--on-ink); background: rgba(232, 176, 75, .12); padding: 2px 6px; border-radius: 3px; }
+article a { color: var(--amber); }
+.gr { font-family: var(--greek); }
+.end { margin-top: 110px; padding-top: 40px; border-top: 1px solid var(--ink-line); display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 24px; }
+.end .x { font: 400 44px/1 var(--display); color: var(--on-ink); }
+.end .g { margin-left: 14px; font: 400 17px/1 var(--digits); color: var(--amber); }
+.end .links { display: flex; flex-wrap: wrap; gap: 20px; font: 500 13px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.end .links a { color: var(--amber); text-decoration: none; }
+@media (max-width: 1100px) {
+  .essay-wrap { grid-template-columns: minmax(0, 680px); gap: 0; padding-top: 120px; }
+  .toc { display: none; }
+}
+@media (max-width: 720px) {
+  body.essay { font-size: 18px; line-height: 1.9; }
+  .homer { display: none; }
+  article h2 { margin-top: 72px; font-size: 28px; }
+  article blockquote { font-size: 24px; padding-left: 20px; }
+}
+</style>
+<style>
+.site-head { position: fixed; top: 0; left: 0; right: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 60px; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); padding-top: env(safe-area-inset-top, 0px); background: rgba(11, 10, 9, .84); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid #2a2823; }
+.site-head a { color: var(--on-ink); text-decoration: none; }
+.site-head .brand { display: flex; align-items: baseline; gap: 12px; }
+.site-head .brand .x { font: 400 24px/1 var(--display); }
+.site-head .brand .g { font: 400 15px/1 var(--digits); color: var(--amber); }
+.site-head nav { display: flex; gap: 22px; font: 500 13px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.site-head nav a { color: var(--on-ink-mute); }
+.site-head nav a:hover, .site-head nav a:focus-visible { color: var(--amber); }
+.site-head nav a.present { color: var(--amber); }
+.site-head nav a[aria-current="page"] { color: var(--amber); box-shadow: inset 0 -2px 0 var(--amber); padding-bottom: 6px; }
+body.page { padding-top: calc(60px + clamp(0px, 1.6vw, 28px) + env(safe-area-inset-top, 0px)); }
+body.page .slide { scroll-margin-top: 72px; }
+.site-foot { max-width: 1680px; margin: clamp(0px, 1.6vw, 28px) auto 0; padding: 56px max(20px, env(safe-area-inset-left, 0px)) 72px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 48px; color: var(--on-ink-mute); border-top: 1px solid #2a2823; }
+.site-foot .sig .x { font: 400 44px/1 var(--display); color: var(--on-ink); }
+.site-foot .sig .g { display: block; margin-top: 10px; font: 400 18px/1 var(--digits); color: var(--amber); }
+.site-foot .sig p { margin: 18px 0 0; font: 400 14px/1.6 var(--mono); letter-spacing: .04em; }
+.site-foot .about p { margin: 0 0 14px; font: 400 17px/1.75 var(--text); max-width: 46em; }
+.site-foot .links { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 20px; font: 500 13px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.site-foot .links a { color: var(--amber); text-decoration: none; }
+@media (max-width: 720px) {
+  .site-head .brand .g { display: none; }
+  .site-head nav { gap: 14px; }
+  .site-foot { grid-template-columns: 1fr; }
+}
+</style>
+<body class="essay">
+<div class="progress" aria-hidden="true"></div>
+<header class="site-head">
+  <a class="brand" href="./"><span class="x">Xenia</span><span class="g">gas for humans</span></a>
+  <nav aria-label="站点"><a aria-current="page" href="essay.html">Essay</a><a class="present" href="present.html">Present</a><a href="xenia-deck.pdf">PDF</a><a href="https://github.com/koriyoshi2041/xenia">GitHub</a></nav>
+</header>
+<div class="essay-wrap">
+<img class="homer" src="img/homer-ink.png" alt="" aria-hidden="true">
+<nav class="toc" aria-label="目录"><p>Essay</p><ol><li><a href="#s1"><span>01</span>敲门的人可能是神</a></li><li><a href="#s2"><span>02</span>开源是一扇向陌生人敞开的门</a></li><li><a href="#s3"><span>03</span>注意力成为稀缺品</a></li><li><a href="#s4"><span>04</span>给信息加上价格：一条密码学的起源线</a></li><li><a href="#s5"><span>05</span>公地与圈地</a></li><li><a href="#s6"><span>06</span>为什么是现在</a></li><li><a href="#s7"><span>07</span>Xenia：不加高墙，而是开一扇有规则的门</a></li><li><a href="#s8"><span>08</span>事实可以携带，认可由社区决定</a></li><li><a href="#s9"><span>09</span>为什么必须放在链上</a></li><li><a href="#s10"><span>10</span>实现：每个协议只做一件事</a></li><li><a href="#s11"><span>11</span>它已经真实运行过</a></li><li><a href="#s12"><span>12</span>更远的地方</a></li><li><a href="#s13"><span>13</span>回到那扇门</a></li></ol></nav>
+<article>
+<h2 id="s1"><span class="no">01</span>敲门的人可能是神</h2>
+<p>在古希腊，有一套关于陌生人的规矩，叫 xenia（<span class="gr" lang="el">ξενία</span>），通常译作待客之道。远道而来的人敲门，主人要请他进来，给他饭吃，先招待，再问来历。理由很朴素：没人知道门外站的是谁，他可能是落难的国王，也可能是乔装的神。《奥德赛》第六卷里有一句话：“所有的陌生人和乞丐，都来自宙斯。”</p>
+<p>但这份好客是双向的。主人有款待的义务，客人也有守礼的义务。《奥德赛》后半部分讲的，正是一群滥用款待的人：求婚者们赖在奥德修斯家里，吃他的、喝他的，年复一年。故事的结局，是他们全部受到惩罚。</p>
+<p>两千多年后，康德在《永久和平论》（1795）里把这个想法写成了一条权利：陌生人来到别人的土地上，有不被敌意对待的权利。他说的是来访的权利，不是留下的权利；要长住下来，需要主人另外同意。</p>
+<p>这两条线索放在一起，几乎就是一个开放社区需要的全部规则：<strong>陌生人有权敲门，主人愿意开门；客人守礼，主人才能一直开门。</strong></p>
+<h2 id="s2"><span class="no">02</span>开源是一扇向陌生人敞开的门</h2>
+<p>开源协作把这扇门开到了极致。一个人不需要认识任何维护者，不需要被谁介绍，就可以读代码、发现问题、提交修改。改得好，修改被合并；持续改得好，他就成了这个社区的一员。今天很多重要项目的核心维护者，最早都是这样一个陌生人。</p>
+<p>这件事能长期运转，靠的是一个很少被说出来的前提：<strong>提交本身有成本。</strong> 读懂一个项目要时间，写一份像样的修改要时间，写清楚说明也要时间。因为有成本，提交者在点下发送之前，已经替维护者做了一轮筛选：这个修改值不值得别人花时间看？</p>
+<p>维护者的注意力有限，但提交的成本让流入的请求和能处理的注意力大致平衡。</p>
+<h2 id="s3"><span class="no">03</span>注意力成为稀缺品</h2>
+<p>这个平衡并非理所当然。1971 年，经济学家 Herbert Simon 写过一段很有预见性的话：</p>
+<blockquote>“信息的丰富，造成注意力的贫乏。”（a wealth of information creates a poverty of attention）</blockquote>
+<p>信息要被接收者花时间理解。生产信息越容易，注意力就越稀缺，也越需要被组织起来。</p>
+<p>互联网很早就体验过这件事。1993 年 9 月，美国在线（AOL）向用户开放 Usenet，大量新用户在同一时间涌入。过去每年九月，新入学的大学生也会涌进来，但老用户能在几周里把社区规范教给他们；这一次，涌入再也没有停下来。老用户把它叫作“永恒的九月”（Eternal September）：社区来不及认识这么多人。</p>
+<p>2017 年，一篇论文的标题后来成了 AI 时代最常被引用的一句话之一：《Attention Is All You Need》。今天的大模型都建立在这种“注意力机制”之上。有点讽刺的是，机器的注意力问题解决了，现在被大量消耗的，是人的注意力。</p>
+<h2 id="s4"><span class="no">04</span>给信息加上价格：一条密码学的起源线</h2>
+<p>如何让“便宜到可以无限发送”的信息，重新带上成本？密码学界很早就在回答这个问题，而这条线索，恰好通向今天的区块链。</p>
+<ul><li><strong>1992 年</strong>，Cynthia Dwork 和 Moni Naor 发表《Pricing via Processing or Combatting Junk Mail》，提出让发信人先完成一道计算题，用计算给邮件定价，抑制垃圾邮件。</li><li><strong>1997 年</strong>，Adam Back 提出 Hashcash：发信前先付出一点可验证的计算工作。对正常写信的人，这点成本几乎感觉不到；对群发百万封的人，成本就变得真实。</li><li><strong>2008 年</strong>，比特币白皮书第 4 节借用了 Hashcash 式的工作量证明，用来守住一个分布式账本：想参与共识或改写历史，都要付出可验证的成本。</li><li><strong>2015 年</strong>，以太坊上线。它用 gas 为每一步计算定价，任何人都能部署和调用程序，但每个程序都受它消耗的资源约束。网络对所有人开放，又不会被某个死循环拖垮。</li><li><strong>2021 年</strong>，EIP-1559 改变了以太坊的手续费：基础费被销毁，不再交给出块者。出块者不能从这部分费用中获利，也就没有动机去抬高它。</li></ul>
+<p>这些系统处理的问题各不相同，但都在回答同一个问题：<strong>一个开放系统，怎样让参与者为自己带来的负担承担成本？</strong></p>
+<h2 id="s5"><span class="no">05</span>公地与圈地</h2>
+<p>维护者的注意力是一种典型的公共资源。1968 年，Garrett Hardin 写下《公地悲剧》：一片人人可以放牧的草场，每个人都多放一头牛，草场最终会被耗尽。开源代码可以无限复制，但维护者每天能投入的注意力是有限的。当每个人都能几乎零成本地追加请求，处理请求的成本就集中到了少数人身上。</p>
+<p>面对公地，历史上最常见的办法是圈地：把草场围起来，只让自己人用。开源世界正在发生同样的事。</p>
+<p>2026 年的头两个月：</p>
+<ul><li>tldraw 开始自动关闭所有外部 PR；</li><li>Ghostty 只接受有人担保的贡献者；</li><li>curl 停止了运行多年的漏洞赏金计划，维护者明确提到 AI 生成的低质量报告带来的负担；</li><li>GitHub 也提供了关闭 PR、或只对协作者开放的选项。</li></ul>
+<p>每一扇门关上都有充分的理由。但关上门，挡住的不只是灌水的账号，也有认真的新人和守规矩的 Agent。在留下记录之前，两者无从区分。圈地让资源重新可管理，代价是陌生人第一次参与的机会。</p>
+<p>不过，公地并不一定走向悲剧。Elinor Ostrom 花了几十年研究牧场、渔场和灌溉系统，发现很多社区没有选择圈地，也没有交给外部权威，而是自己制定适合本地的规则、自己监督、长期合作，把共同资源管理得很好。她因此获得 2009 年诺贝尔经济学奖。她的结论给了我们一个出发点：<strong>社区有能力决定自己的边界、责任和参与方式。</strong></p>
+<h2 id="s6"><span class="no">06</span>为什么是现在</h2>
+<p>AI 让这个老问题突然变得尖锐。写一份 PR、一份漏洞报告、一段长篇评论的成本接近于零，一个 Agent 可以不停地提出新请求。而接收者仍然需要理解上下文、检查证据、为决定负责。openclaw 在 2026 年 9 月一个月里收到 20,640 个 PR，平均每天 688 个。GitHub 在推出 PR 数量限制时直接描述了这个落差：创建 PR 越来越容易，审阅仍然需要人的时间。</p>
+<p>但同一时间，另一件事也发生了：<strong>Agent 有了支付能力和身份。</strong> 2025 年，Coinbase 推出 x402，让 HTTP 的 402 状态码真正承载付款，程序收到报价、签一个名就能付钱；同年，ERC-8004 为 Agent 定义了链上的身份和反馈注册表，一个 Agent 做过什么可以跟着它走。</p>
+<p>这意味着，带来洪水的 AI，第一次有能力为自己的请求承担成本。过去，要让一个程序为自己的请求押一笔可退的钱，并让这笔钱和它的身份、记录对应起来，没有现成的标准；现在有了。这是 Xenia 成立的时间条件。</p>
+<h2 id="s7"><span class="no">07</span>Xenia：不加高墙，而是开一扇有规则的门</h2>
+<p>Xenia 是开放社区的准入协议。它的想法可以用一句话说完：<strong>陌生人先交一笔可退的押金进门，再用贡献积累信任。</strong></p>
+<p>具体是四个动作：</p>
+<ol><li><strong>承诺（Commit）</strong>：没有记录的贡献者，在进入正式审阅队列前，先锁定一笔押金。</li><li><strong>审阅（Review）</strong>：维护者照常审阅，给出结论：接受、善意未采用，或判定为垃圾。</li><li><strong>记录（Record）</strong>：结论写成链上证明，归贡献者所有，可以带走。</li><li><strong>互认（Recognize）</strong>：其他社区自行决定是否认可这些记录。认可越多，下次押金越低，直到免押。</li></ol>
+<p>押金的四种结局决定了它的性格：</p>
+<ul><li>PR 被合并，全额退回，并留下一条贡献记录；</li><li>认真但未被采用，同样全额退回；</li><li>只有判定为垃圾，押金才进入社区事先指定的公共池；</li><li>维护者 14 天没有处理，付款人可以自行取回。</li></ul>
+<p>退款规则是整个设计里最重要的一条。开源协作需要尝试的空间，一份认真、有依据的修改可能只因为项目方向不同而被拒绝，这样的尝试不应该受罚。所以押金不是门票，它表达的是：<strong>我为这次请求担保，请你花时间看一看。</strong> 对认真的人，这笔钱最终不会损失，只是短暂占用；对批量灌水的人，成本随提交量增长。</p>
+<p>罚没为什么进公共池，而不是给维护者？这是从 EIP-1559 借来的思路：如果罚没归裁决者，裁决者就有动机多罚，押金会变成一门生意。把钱的去向和判断的人分开，维护者只负责判断。</p>
+<h2 id="s8"><span class="no">08</span>事实可以携带，认可由社区决定</h2>
+<p>押金只解决了“第一次”。更重要的是，认真的工作应该产生长期价值。</p>
+<p>一个人在某个社区做过有用的工作，下次再来就可以少押一些，积累够了就可以免押。进一步，如果另一个社区认可这些记录，他就能带着过去的贡献去那里。社区 A 记录“这份工作我们接受过”；社区 B 决定“我认可 A 的哪类记录、认可多少”。<strong>贡献事实只有一份，可以携带；认可的规则属于每个社区自己。</strong> 同一段经历在不同社区可以得到不同的待遇。</p>
+<p>这和开源世界原本形成信任的方式很接近：我们通过一起工作认识一个人，也会参考自己尊重的其他维护者的判断。Xenia 只是把这件事变得可验证、可计算。</p>
+<p>于是，初次参与时的资金承诺，会逐渐被真实合作积累的信任替代。押金是关系建立之前的临时方案，记录和认可才是长期方案。</p>
+<h2 id="s9"><span class="no">09</span>为什么必须放在链上</h2>
+<p>这套机制里有三件事，离开链很难做到。</p>
+<p><strong>第一，押金谁都拿不走。</strong> 陌生人愿意交押金，前提是相信钱会回来。如果押金放在某个平台或仓库主人手里，陌生人就要先信任他们，这恰好是陌生人最缺的东西。押金锁在合约里，维护者无法动用；罚没只能进入写死的公共池；即使我们的服务完全停掉，付款人到期也能自己取回。</p>
+<p><strong>第二，记录不属于任何平台。</strong> 如果贡献记录存在我们的数据库里，它就只是我们的记录。写成公开的链上证明之后，任何社区都能读取和核验，即使这个项目停止运营，记录依然存在。只有这样，记录才真正能“带走”，才能从 GitHub 扩展到 DAO 论坛和资助申请。</p>
+<p><strong>第三，规则对所有人一致。</strong> 押金多少、何时退还、资金去向都写在代码里，人和 Agent 守同一套规矩。Vitalik 把这叫作“可信中立”：只看机制本身，就能确认它不偏向任何人。</p>
+<p>还有一点：Agent 能用一个签名付款，有链上身份。没有这两样，“让 AI 为自己的请求负责”只能停在口号上。</p>
+<h2 id="s10"><span class="no">10</span>实现：每个协议只做一件事</h2>
+<p>我们把这条逻辑接成了一套完整运行的系统。每个部件都对应故事里的一个动作。</p>
+<ul><li><strong>GitHub App</strong> 接收真实 PR 的创建、合并、关闭事件，并写一个准入检查：押金确认或免押之前，PR 不进入正式待审队列；仓库在分支保护里把它设为必需检查后，PR 也无法合并。合并触发“接受”，普通关闭触发“善意未采用”，带 <code>gfh:spam</code> 标签关闭触发“垃圾”。</li><li><strong>报价</strong>读取贡献记录和目标社区的签名政策，算出这一次的押金和理由。演示社区的基础押金是 5 USDC，有一份记录降到 0.5，两份免押。认可最多传两跳，第二跳减半，同一条记录只算一次，这样每一个报价的理由都能完整展示给参与者。</li><li><strong>x402</strong> 把押金要求以标准报文送到客户端：服务返回 402 和付款参数，客户端用 <strong>ERC-3009</strong> 签名授权 USDC，由中继提交交易并支付 gas。贡献者和 Agent 都不需要持有 ETH。</li><li><strong>托管</strong>复用 Coinbase 审计过的 <code>AuthCaptureEscrow</code>，它的 authorize、void、capture、reclaim 正好对应押金的锁定、退回、罚没和到期取回。我们没有自己写托管合约。</li><li><strong>GfhBondOperator</strong> 是我们写的部分：登记社区，把每一笔付款绑定到具体的 PR，验证社区裁决者的 EIP-712 签名，并在同一笔交易里完成结算和写记录，不会出现“钱退了但没有记录”的情况。免押的贡献也会写记录，所以已有记录的贡献者，历史会继续增长。</li><li><strong>EAS</strong> 保存贡献事实：哪个社区、哪份工作、什么结论、押了多少。任何应用都能用通用接口读取。</li><li><strong>EIP-712</strong> 让每个社区签署自己的认可政策：认可谁、认可哪类贡献、权重多少。政策在链下签名，改起来不用发交易，但任何人都能验证“这确实是该社区的决定”。</li><li><strong>MCP</strong> 把这些动作开放给 Agent：读取规则、查询报价、提交 PR、交押金、导出记录。Agent 可以在动手之前先读懂参与条件，把押金纳入自己的任务规划。</li><li><strong>ERC-8004</strong> 把 Agent 的链上身份和贡献反馈接到更大的 Agent 生态里。它是可选的；关掉它，主流程照常成立。</li></ul>
+<p>最后，贡献者可以导出一份<strong>贡献护照</strong>。核验它只需要这份文件、合约地址和一个区块链节点，不需要我们的服务器、数据库或私钥：读取链上的证明和交易，核对社区签名，按包里的政策重新计算认可路径。</p>
+<h2 id="s11"><span class="no">11</span>它已经真实运行过</h2>
+<p>演示沿着一名 Agent 贡献者的经历展开，全部发生在真实的 GitHub 仓库和公共测试网 Base Sepolia 上：</p>
+<ol><li>它先在 amounts 仓库提交一个精确汇总 USDC 金额的修改。没有任何记录，押 5 USDC。PR 合并后，押金全额退回，链上留下第一条贡献证明。</li><li>第二次，它提交一个精确拆分共享预算的修改。已有一条记录，押金降到 0.5 USDC。合并后同样退回。</li><li>然后它去了 budgets 仓库。budgets 签名认可了 amounts 的记录，它带着两次贡献，新的 PR 免押进入审阅队列。</li><li>budgets 撤回认可，新请求的报价回到 5；重新认可，又降回 0。之前的记录始终保留。</li></ol>
+<p>每一步都有链上证据：Operator 合约地址、两条 EAS 证明、托管和结算交易，都列在 README 里，任何人都可以在区块浏览器上打开核对。整个过程中能看到的是：<strong>工作怎样形成记录，记录怎样获得认可，认可怎样改变下一次参与的条件。</strong></p>
+<p>我们也用历史数据检验过这扇门会挡住谁：抓取 11 个以太坊仓库的全部 118,663 个历史 PR，按这套规则回放。</p>
+<ul><li>2025 年以来约 3 万个人类 PR 中，88.4% 根本不需要押金，老贡献者几乎感觉不到这扇门，它只落在陌生人身上；</li><li>本来需要押金的“新人”里，有 25.8% 在其他以太坊仓库早有合并记录，可携带的记录直接替他们免押；</li><li>在同一仓库合并过 5 个以上 PR 的 977 位常客里，有 23.7% 的第一个 PR 曾被关闭。这说明善意关闭必须退款，否则这道门会把未来的核心贡献者挡在外面。</li></ul>
+<h2 id="s12"><span class="no">12</span>更远的地方</h2>
+<p>PR 只是第一扇门。凡是需要排队等待人类注意力的地方，问题都一样。</p>
+<ul><li><strong>DAO 治理讨论。</strong> PR 消耗维护者的时间，治理讨论消耗整个社区理解问题、比较方案、形成判断的时间。ArbitrumDAO 在 2026 年 7 月修订行为准则，专门回应 AI 生成的低质量发言：它们大多谈不上恶意，却会淹没真正有用的意见。同一套押金和记录可以用在正式讨论入口上：有依据的分析、有效的质疑、认真的反对都会积累记录；意见没被采用，善意参与照样退款。Cosmos 的链上提案押金，就是区块链社区用押金对付垃圾提案的先例。</li><li><strong>资助申请。</strong> 一个人在某个资助计划里交付过什么，到另一个计划也应该算数，并成为回溯资助的依据。</li><li><strong>Agent 主动找人。</strong> 当 Agent 开始主动联系人类，请人审阅、回答、确认时，同样的规则可以反过来保护每个人的收件箱。</li></ul>
+<p>随着更多社区加入，一个人或一个 Agent 的认真工作，就能帮他在新的地方获得第一次合作的机会。</p>
+<h2 id="s13"><span class="no">13</span>回到那扇门</h2>
+<p>古希腊人给陌生人开门，是因为相信门外的人可能是神。我们今天给陌生人开门，是因为开源世界最好的东西，往往来自一个谁也不认识的人。</p>
+<p>AI 没有改变这件事的价值，只是让开门变得越来越难。关门是最省事的办法，但它关掉的不只是洪水，也关掉了下一个陌生人的机会。</p>
+<p>Xenia 想做的，是让门可以继续开着：门口有一套所有人都看得懂的规则，认真的人进得来，留下的工作跟着他走，而灌水的成本由灌水的人自己承担。</p>
+<p><strong>在 AI 的时代，一个陌生人仍然可以凭一次认真的贡献走进社区，并凭持续的贡献赢得信任。</strong> 这就是 Xenia，gas for humans。</p>
+<div class="end"><div><span class="x">Xenia</span><span class="g">gas for humans</span></div><div class="links"><a href="./">Deck</a><a href="present.html">Present</a><a href="xenia-deck.pdf">PDF</a><a href="https://github.com/koriyoshi2041/xenia">GitHub</a></div></div>
+</article>
+</div>
+<script>
+(() => {
+  const bar = document.querySelector(".progress");
+  const links = Array.from(document.querySelectorAll(".toc a"));
+  const heads = links.map((a) => document.querySelector(a.getAttribute("href")));
+  const onScroll = () => {
+    const h = document.documentElement;
+    bar.style.width = (h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight)) * 100 + "%";
+    let cur = 0;
+    heads.forEach((el, i) => { if (el && el.getBoundingClientRect().top < 160) cur = i; });
+    links.forEach((a, i) => a.classList.toggle("on", i === cur));
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>
